@@ -6,14 +6,12 @@ import {
 } from 'react-router-dom';
 
 import './css/style.css';
-import '../public/css/style.css';
-import '../public/css/bootstrap.css';
 
 import './charts/ChartjsConfig';
 
 // Import pages
 import Dashboard from './pages/Dashboard';
-import Landing from './src/LandingPageApp'
+import Landing from './pages/Landing';
 
 function App() {
 
@@ -28,8 +26,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
         <Route exact path="/landing" element={<Landing />} />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </>
   );
