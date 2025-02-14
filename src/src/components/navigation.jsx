@@ -1,66 +1,101 @@
 import React from "react";
+import { Link } from "react-scroll";
 import '../../../public/css/bootstrap.css';
 
 export const Navigation = (props) => {
-  const handleScroll = (e, id) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else if (id === 'page-top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
         <div className="navbar-header">
-          <a 
+          <Link 
             className="navbar-brand" 
-            href="#page-top"
-            onClick={(e) => handleScroll(e, 'page-top')}
+            to="page-top"
+            spy={true}
+            smooth={true}
+            duration={500}
           >
             REACT LANDING PAGE
-          </a>
+          </Link>
         </div>
 
         <div className="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll" onClick={(e) => handleScroll(e, 'features')}>
+              <Link 
+                to="features" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 FEATURES
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#about" className="page-scroll" onClick={(e) => handleScroll(e, 'about')}>
+              <Link 
+                to="about" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 ABOUT
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#services" className="page-scroll" onClick={(e) => handleScroll(e, 'services')}>
+              <Link 
+                to="services" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 SERVICES
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#gallery" className="page-scroll" onClick={(e) => handleScroll(e, 'gallery')}>
+              <Link 
+                to="gallery" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 GALLERY
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#testimonials" className="page-scroll" onClick={(e) => handleScroll(e, 'testimonials')}>
+              <Link 
+                to="testimonials" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 TESTIMONIALS
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#team" className="page-scroll" onClick={(e) => handleScroll(e, 'team')}>
+              <Link 
+                to="team" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 TEAM
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#contact" className="page-scroll" onClick={(e) => handleScroll(e, 'contact')}>
+              <Link 
+                to="contact" 
+                className="page-scroll"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
                 CONTACT
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
