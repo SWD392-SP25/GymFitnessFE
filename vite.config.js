@@ -10,6 +10,9 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,
+    },
+    rollupOptions: {
+      external: ["smooth-scroll"],
     }
   } 
 })
