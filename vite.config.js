@@ -12,7 +12,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     rollupOptions: {
-      external: ["smooth-scroll"],
+      external: ["smooth-scroll", "emailjs-com"],
     }
   } 
 })
