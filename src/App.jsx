@@ -12,6 +12,7 @@ import './charts/ChartjsConfig';
 // Import pages
 import Dashboard from './pages/Dashboard';
 import Landing from './pages/Landing';
+import SigninSignup from './pages/SigninSignup';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route exact path="/landing" element={<Landing />} />
         <Route path="/" element={<Dashboard />} />
+        <Route path="/sign-in-sign-up" element={<SigninSignup />} />
       </Routes>
     </>
   );
