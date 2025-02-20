@@ -2,7 +2,6 @@ import React from 'react';
 import Wrapper from '../UI/Wrapper';
 import contactclasses from './Contact.module.css';
 import FormContact from '../Sub-Components/FormContact';
-import ContactDetails from '../Sub-Components/ContactDetails';
 import {motion} from 'framer-motion';
 
 const mainTitleAnimation = {
@@ -49,7 +48,6 @@ const Contact = () => {
 					viewport={{once: true, amount: 0.8}}
 					className={contactclasses['contactus-us__div']}>
 					<FormContact />
-					<ContactDetails />
 				</motion.div>
 			</div>
 		</Wrapper>

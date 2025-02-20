@@ -27,6 +27,10 @@
   transition: color 0.3s;
 }
 
+.nav-link:hover {
+  color: #f35508;
+}
+
 .nav-link::after {
   content: '';
   position: absolute;
@@ -43,5 +47,5 @@
 .nav-link:hover::after {
   width: 100%;
   left: 0;
-  background: #FFFFFF; /* Change this to your desired hover color */
+  background: #f35508; /* Change this to your desired hover color */
 } 

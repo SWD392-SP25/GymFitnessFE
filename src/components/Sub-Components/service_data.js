@@ -1,8 +1,8 @@
 export const services = [
 	{
 		id: 1,
-		title: 'Boxing',
-		badgetext: 'Professional Gym',
+		title: 'Chatbot',
+		badgetext: 'Our chatbot AI is ready to answer your questions 24/7',
 		backgroundcolor: '#FFB379',
 		textcolor: 'black',
 		imagealt: 'Boxing Fitness',
@@ -11,8 +11,8 @@ export const services = [
 	},
 	{
 		id: 2,
-		title: 'Stretching',
-		badgetext: 'Professional Gym',
+		title: 'Course Packages',
+		badgetext: 'Many diverse training packages for you to choose from',
 		backgroundcolor: '#464646',
 		textcolor: 'white',
 		imagealt: 'Stretching in Fitness',
@@ -21,8 +21,8 @@ export const services = [
 	},
 	{
 		id: 3,
-		title: 'Body Building',
-		badgetext: 'Professional Gym',
+		title: 'Meet Trainers',
+		badgetext: 'Our professional PT team is always ready to answer your questions',
 		backgroundcolor: '#CECECE',
 		textcolor: 'black',
 		imagealt: 'Bodybuilding in Gym',
@@ -31,8 +31,8 @@ export const services = [
 	},
 	{
 		id: 4,
-		title: 'Yoga',
-		badgetext: 'Expert Yoga',
+		title: 'Planing',
+		badgetext: 'We always display and remind you of your training process',
 		backgroundcolor: '#FAF0E4',
 		textcolor: 'black',
 		imagealt: 'Yoga in Gym',
@@ -41,8 +41,8 @@ export const services = [
 	},
 	{
 		id: 5,
-		title: 'Running',
-		badgetext: 'Professional Gym',
+		title: 'Join Us',
+		badgetext: 'Our application with convenient services is always available',
 		backgroundcolor: '#C0D6EA',
 		textcolor: 'black',
 		imagealt: 'Running in Gym',
@@ -51,8 +51,8 @@ export const services = [
 	},
 	{
 		id: 6,
-		title: 'Zumba Aerobics',
-		badgetext: 'Expert Zumba',
+		title: 'Become Our Partner',
+		badgetext: 'Sign up as a trainer and create your own course',
 		backgroundcolor: '#D6E8DB',
 		textcolor: 'black',
 		imagealt: 'Zumba Dance fitness',

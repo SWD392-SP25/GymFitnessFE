@@ -1,15 +1,15 @@
 import React from 'react';
 import packageclasses from './Package.module.css';
 import PackageCard from '../UI/PackageCard';
-import {motion} from 'framer-motion';
-import {CgGym} from 'react-icons/cg';
-import {FaCrown} from 'react-icons/fa';
-import {IconContext} from 'react-icons';
-import {BsFillCheckCircleFill} from 'react-icons/bs';
+import { motion } from 'framer-motion';
+import { CgGym } from 'react-icons/cg';
+import { FaCrown } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 import Badge from '../Badge/Badge';
 
 const mainTitleAnimation = {
-	hidden: {opacity: 0, y: -90},
+	hidden: { opacity: 0, y: -90 },
 	visible: {
 		opacity: 1,
 		y: 0,
@@ -70,61 +70,59 @@ const Package = () => {
 					variants={mainTitleAnimation}
 					initial='hidden'
 					whileInView='visible'
-					viewport={{once: true, amount: 0.8}}
+					viewport={{ once: true, amount: 0.8 }}
 					className={packageclasses.title}>
-					Fitness Package
+					Course Packages
 				</motion.h3>
 				<motion.hr
 					variants={lineanimate}
 					initial='hidden'
 					whileInView='visible'
-					viewport={{once: true, amount: 0.8}}
+					viewport={{ once: true, amount: 0.8 }}
 				/>
 				<motion.p
 					variants={fadeinAnimate}
 					initial='hidden'
 					whileInView='visible'
-					viewport={{once: true, amount: 0.8}}>
-					Create a captivating fitness website with our all-inclusive package. Customize your sleek
-					template, engage users with interactive videos, schedule classes, and share valuable
-					content. It's time to inspire and motivate your audience with our mobile-responsive
-					solution.
+					viewport={{ once: true, amount: 0.8 }}>
+					We have many training packages with detailed instructional videos and diverse content.
+					You can chat with our trainers after registering for the course.
+					Register now with many preferential prices
 				</motion.p>
-				<IconContext.Provider value={{size: '2.5em'}}>
+				<IconContext.Provider value={{ size: '2.5em' }}>
 					<div className={packageclasses['package-card__info']}>
 						<PackageCardMotion
 							variants={cardreveal}
 							initial='hidden'
 							whileInView='visible'
-							viewport={{once: true, amount: 0.8}}
+							viewport={{ once: true, amount: 0.8 }}
 							bgcolor='dark'>
 							<CgGym />
-							<div style={{marginTop: '1.6em'}}>
-								<Badge bgcolor='#FFD700'>Gold</Badge>
+							<div style={{ marginTop: '1.6em' }}>
+								<Badge bgcolor='#FFD700'>Short Courses</Badge>
 								<div className={packageclasses['package-card__cost']}>
-									<h4>$40</h4>
-									<p>/ Monthly</p>
+									<h4>$20</h4>
+									<p>/ Course</p>
 								</div>
 								<p className={packageclasses['package-card__cost-details']}>
-									Fitness Companies may offer various packages and planes to their clients,
-									depending in their services.
+									Training packages with short videos, suitable for who don't have much time
 								</p>
 								<ul className={packageclasses['package-card__featurelist']}>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Free consumption</p>
+										<p>10 - 12 videos</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Consulation with coach</p>
+										<p>240 - 360 hours of practice</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>3 hours of pratice</p>
+										<p>Consulation with trainer</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Free fitness shirts</p>
+										<p></p>
 									</li>
 								</ul>
 							</div>
@@ -133,35 +131,34 @@ const Package = () => {
 							variants={cardreveal}
 							initial='hidden'
 							whileInView='visible'
-							viewport={{once: true, amount: 0.8}}
+							viewport={{ once: true, amount: 0.8 }}
 							bgcolor='light'>
 							<FaCrown />
-							<div style={{marginTop: '1.6em'}}>
-								<Badge bgcolor='#f35508'>Premium</Badge>
+							<div style={{ marginTop: '1.6em' }}>
+								<Badge bgcolor='#f35508'>Long Courses</Badge>
 								<div className={packageclasses['package-card__cost']}>
-									<h4>$80</h4>
-									<p>/ Monthly</p>
+									<h4>$40</h4>
+									<p>/ Course</p>
 								</div>
 								<p className={packageclasses['package-card__cost-details']}>
-									Fitness Companies may offer various packages and planes to their clients,
-									depending in their services.
+									Long-term and detailed training packages, suitable for who
 								</p>
 								<ul className={packageclasses['package-card__featurelist']}>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Free consumption</p>
+										<p>20 - 24 videos</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Consulation with expert coach</p>
+										<p>480 - 720 hours of practice</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Free Steam & Sauna rooms</p>
+										<p>Consulation with expert trainers</p>
 									</li>
 									<li className={packageclasses['package-card__featureitem']}>
 										<BsFillCheckCircleFill size='1.5rem' />
-										<p>Free fitness shirts</p>
+										<p></p>
 									</li>
 								</ul>
 							</div>
