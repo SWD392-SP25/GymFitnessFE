@@ -1,11 +1,13 @@
 import React from 'react';
 import SignupSignin from '../components/SigninSignup';
+import landingclasses from './Landing.module.css';
+import Navigation from '../components/Navigation';
 
 const SigninSignup = () => {
   return (
-    <div>
+    <div className={landingclasses.landing}>
+      <Navigation />
       <SignupSignin />
-      {/* Add more content for the landing page here */}
     </div>
   );
 };

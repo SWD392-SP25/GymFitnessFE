@@ -1,5 +1,6 @@
 import styles from "./HeroSection.module.css";
 
+
 const HeroSection = () => {
 
   return (
@@ -10,8 +11,8 @@ const HeroSection = () => {
         Fit & Strong
       </h1>
       <div>
-        <button className={styles}>Join Us Now</button>
-        <button className={styles}>Become Trainer</button>
+      <a href="/"><button className={styles}>Join Us Now</button></a>
+      <a href="/sign-in-sign-up"><button className={styles}>Become Trainer</button></a>
       </div>
     </div>
   );
