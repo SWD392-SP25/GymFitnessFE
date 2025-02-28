@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from '../UI/Wrapper';
+import Wrapper from '../ui/Wrapper';
 import contactclasses from './Contact.module.css';
 import FormContact from '../Sub-Components/FormContact';
 import {motion} from 'framer-motion';
