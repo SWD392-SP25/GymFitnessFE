@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from '../UI/Wrapper';
+import Wrapper from '../ui/Wrapper';
 import serviceclasses from './Services.module.css';
 import ServiceItem from '../Sub-Components/ServiceItem';
 import {services as servicedata} from '../Sub-Components/service_data';
