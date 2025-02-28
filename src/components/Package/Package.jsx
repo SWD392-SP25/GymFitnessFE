@@ -1,6 +1,6 @@
 import React from 'react';
 import packageclasses from './Package.module.css';
-import PackageCard from '../UI/PackageCard';
+import PackageCard from '../ui/PackageCard';
 import { motion } from 'framer-motion';
 import { CgGym } from 'react-icons/cg';
 import { FaCrown } from 'react-icons/fa';
