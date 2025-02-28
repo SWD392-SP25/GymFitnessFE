@@ -1,6 +1,6 @@
 import React from 'react';
 import featureclasses from './Feature.module.css';
-import FeatureCard from '../UI/Featurecard';
+import FeatureCard from '../ui/Featurecard';
 import {motion} from 'framer-motion';
 import {AiOutlineLike} from 'react-icons/ai';
 import {BiCheckCircle} from 'react-icons/bi';
