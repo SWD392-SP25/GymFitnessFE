@@ -21,10 +21,14 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: #FFFFFF;
   position: relative;
   padding-bottom: 5px;
   transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #f35508;
 }
 
 .nav-link::after {
@@ -43,5 +47,5 @@
 .nav-link:hover::after {
   width: 100%;
   left: 0;
-  background: #007BFF; /* Change this to your desired hover color */
+  background: #f35508; /* Change this to your desired hover color */
 } 
