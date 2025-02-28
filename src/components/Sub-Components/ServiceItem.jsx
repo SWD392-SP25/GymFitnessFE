@@ -1,6 +1,6 @@
 import React from 'react';
 import Badge from '../Badge/Badge';
-import ServicesCard from '../UI/ServicesCard';
+import ServicesCard from '../ui/ServicesCard';
 import servicesitemclasses from './ServiceItem.module.css';
 
 const ServiceItem = props => {
