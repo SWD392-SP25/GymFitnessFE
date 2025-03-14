@@ -11,10 +11,11 @@ const ConversationList = ({
   searchTerm,
   isLoading 
 }) => {
+  const safeSearchTerm = searchTerm ? searchTerm.toLowerCase() : "";
   // Filter conversations based on search term
-  const filteredConversations = conversations.filter(conversation => 
-    conversation.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    conversation.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredConversations = (Array.isArray(conversations) ? conversations : []).filter(conversation =>
+    (conversation.customerName?.toLowerCase() || "").includes(safeSearchTerm) ||
+    (conversation.courseName?.toLowerCase() || "").includes(safeSearchTerm)
   );
 
   const formatTime = (timestamp) => {

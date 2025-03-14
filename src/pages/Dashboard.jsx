@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate để điều hướng
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../components/DropdownFilter';
@@ -20,27 +20,37 @@ import DashboardCard13 from '../partials/dashboard/DashboardCard13';
 import Banner from '../partials/Banner';
 
 function Dashboard() {
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    // Lấy role từ localStorage hoặc API (tuỳ cách bạn lưu trữ user info)
+    const userRole = localStorage.getItem('role'); // Ví dụ: admin, staff, user
+
+    if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
+      navigate('/sign-in-sign-up'); // Nếu không phải admin hoặc staff, chuyển hướng về trang login
+    } else {
+      setRole(userRole);
+    }
+  }, [navigate]);
+
+  if (!role) return null; // Chờ role được xác định
 
   return (
     <div className="flex h-screen overflow-hidden">
-
       {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-
-        {/*  Site header */}
+        {/* Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main className="grow">
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-
             {/* Dashboard actions */}
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
-
               {/* Left: Title */}
               <div className="mb-4 sm:mb-0">
                 <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Dashboard</h1>
@@ -50,7 +60,7 @@ function Dashboard() {
               <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                 {/* Filter button */}
                 <FilterButton align="right" />
-                {/* Datepicker built with React Day Picker */}
+                {/* Datepicker */}
                 <Datepicker align="right" />
                 {/* Add view button */}
                 <button className="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
@@ -60,46 +70,28 @@ function Dashboard() {
                   <span className="max-xs:sr-only">Add View</span>
                 </button>                
               </div>
-
             </div>
 
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
-
-              {/* Line chart (Acme Plus) */}
               <DashboardCard01 />
-              {/* Line chart (Acme Advanced) */}
               <DashboardCard02 />
-              {/* Line chart (Acme Professional) */}
               <DashboardCard03 />
-              {/* Bar chart (Direct vs Indirect) */}
               <DashboardCard04 />
-              {/* Line chart (Real Time Value) */}
               <DashboardCard05 />
-              {/* Doughnut chart (Top Countries) */}
               <DashboardCard06 />
-              {/* Table (Top Channels) */}
               <DashboardCard07 />
-              {/* Line chart (Sales Over Time) */}
               <DashboardCard08 />
-              {/* Stacked bar chart (Sales VS Refunds) */}
               <DashboardCard09 />
-              {/* Card (Customers) */}
               <DashboardCard10 />
-              {/* Card (Reasons for Refunds) */}
               <DashboardCard11 />
-              {/* Card (Recent Activity) */}
               <DashboardCard12 />
-              {/* Card (Income/Expenses) */}
               <DashboardCard13 />
-              
             </div>
-
           </div>
         </main>
 
         <Banner />
-
       </div>
     </div>
   );

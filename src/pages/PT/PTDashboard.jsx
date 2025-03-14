@@ -35,10 +35,7 @@ const PTDashboard = () => {
   return (
     <div className={styles.ptDashboard}>
       {/* Mobile menu toggle button */}
-      <button className={styles.mobileMenuToggle} onClick={toggleMobileMenu}>
-        {isMobileMenuOpen ? <FiX /> : <FiMenu />}
-        <span>Menu</span>
-      </button>
+      
 
       {/* Sidebar */}
       <aside className={clsx(styles.sidebar, { [styles.mobileOpen]: isMobileMenuOpen })}>
