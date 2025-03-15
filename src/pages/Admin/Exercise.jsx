@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
-import { getExercisesAPI, getExerciseCategoriesAPI, getMuscleGroupAPI } from "../../services/UsersService";
-import { Link } from "react-router-dom";
+import {
+    getExercisesAPI,
+    getExerciseCategoriesAPI,
+    getMuscleGroupAPI,
+    deleteExerciseAPI } from "../../services/UsersService";
+import { Link, useNavigate } from "react-router-dom";
 
 const Exercise = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const navigate = useNavigate();
     const [exercises, setExercises] = useState([]);
     const [categories, setCategories] = useState([]);
     const [muscles, setMuscles] = useState([]);
@@ -17,15 +22,26 @@ const Exercise = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 5;
     const totalPages = 10;
+    const [role, setRole] = useState(null);
+
+    useEffect(() => {
+        const userRole = localStorage.getItem('role');
+
+        if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
+            navigate('/sign-in-sign-up');
+        } else {
+            setRole(userRole);
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await getExerciseCategoriesAPI();
-                console.log("📌 Categories fetched:", response);
+                console.log("Categories fetched:", response);
                 setCategories(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy danh mục bài tập:", error);
+                console.error("Lỗi khi lấy danh mục bài tập:", error);
             }
         };
         fetchCategories();
@@ -35,10 +51,10 @@ const Exercise = () => {
         const fetchMuscles = async () => {
             try {
                 const response = await getMuscleGroupAPI();
-                console.log("📌 Muscles fetched:", response);
+                console.log("Muscles fetched:", response);
                 setMuscles(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy nhóm cơ:", error);
+                console.error("Lỗi khi lấy nhóm cơ:", error);
             }
         };
         fetchMuscles();
@@ -55,10 +71,10 @@ const Exercise = () => {
                     pageNumber: currentPage,
                     pageSize: pageSize,
                 });
-                console.log("📌 Exercises fetched:", response);
+                console.log("Exercises fetched:", response);
                 setExercises(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy danh sách bài tập:", error);
+                console.error("Lỗi khi lấy danh sách bài tập:", error);
                 setError("Không thể lấy dữ liệu");
             } finally {
                 setLoading(false);
@@ -66,6 +82,18 @@ const Exercise = () => {
         };
         fetchExercises();
     }, [currentPage, searchQuery, selectedCategory]);
+
+    const handleDeleteExercise = async (id) => {
+        if (window.confirm("You really want to delete this exercise?")) {
+            try {
+                await deleteExerciseAPI(id);
+                setExercises((prev) => prev.filter((exercise) => exercise.exerciseId !== id));
+                console.log(`Exercise ID ${id} deleted successfully`);
+            } catch (error) {
+                console.error(`Lỗi khi xóa bài tập ID ${id}:`, error);
+            }
+        }
+    };
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -127,10 +155,11 @@ const Exercise = () => {
                                         <th className="border p-3">Id</th>
                                         <th className="border p-3">Name</th>
                                         <th className="border p-3">Description</th>
-                                        <th className="border p-3">Muscle Group</th>
+                                        <th className="border p-3">Muscle</th>
                                         <th className="border p-3">Category</th>
                                         <th className="border p-3">Difficulty</th>
                                         <th className="border p-3">Equipment</th>
+                                        <th className="border p-3 text-center">Delete</th>
                                         <th className="border p-3">Details</th>
                                     </tr>
                                 </thead>
@@ -145,14 +174,23 @@ const Exercise = () => {
                                                 <td className="border p-3">{exercise.categoryName}</td>
                                                 <td className="border p-3">{exercise.difficultyLevel}</td>
                                                 <td className="border p-3">{exercise.equipmentNeeded}</td>
+                                                <td className="border p-3">
+                                                    <button
+                                                        onClick={() => handleDeleteExercise(exercise.exerciseId)}
+                                                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
                                                 <td className="p-3 text-center">
                                                     <Link
                                                         to={`/Exercise-Detail/${exercise.exerciseId}`}
-                                                        className="text-[#8470FF] hover:text-[#6b5acd] hover:underline"
+                                                        className="bg-[#8470FF] text-white px-3 py-1 rounded hover:bg-[#6b5acd] transition inline-block text-center"
                                                     >
                                                         View
                                                     </Link>
                                                 </td>
+
                                             </tr>
                                         ))
                                     ) : (

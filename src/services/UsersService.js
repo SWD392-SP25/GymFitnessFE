@@ -1,7 +1,7 @@
 
 import instance from "./customize-axios";
 
-//Endpoints đã làm:
+//---------------------------------------------------Endpoints đã làm-------------------------------------------
 // 1 login
 // 2 refreshToken
 // 3 logout
@@ -12,9 +12,11 @@ import instance from "./customize-axios";
 // 8 get all cate 
 // 9 get all muscle
 // 10 update exercise: data 
-// 11 update exercise: img and video 1/2
-// 12 delete exercise //
-// 13 create exercise 1/2
+// 11 update exercise: img and video
+// 12 delete exercise 
+// 13 create exercise 
+
+// LÀM THÊM 13 CÁI NỮA THOI RỒI MÌNH ĐỔ THỪA LÀ TẠI BACK END CHƯA CÓ ĐỦ API ; )
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------
 const AuthEndpoints = {
@@ -31,7 +33,7 @@ export const loginAPI = async (idToken) => {
     });
     return response;
   } catch (error) {
-    console.error("❌ Lỗi đăng nhập:", error);
+    console.error("Lỗi đăng nhập:", error);
     throw error;
   }
 };
@@ -43,7 +45,7 @@ export const refreshTokenAPI = async (refreshToken) => {
     const response = await instance.post(AuthEndpoints.refreshToken, { refreshToken });
     return response;
   } catch (error) {
-    console.error("❌ Lỗi làm mới token:", error);
+    console.error("Lỗi làm mới token:", error);
     throw error;
   }
 };
@@ -51,20 +53,20 @@ export const refreshTokenAPI = async (refreshToken) => {
 // logout
 export const logoutAPI = async () => {
   try {
-    const token = localStorage.getItem("token"); // Lấy access token từ localStorage
+    const token = localStorage.getItem("token");
 
     if (!token) throw new Error("Không tìm thấy access token!");
 
-    // Gửi request logout lên backend kèm token theo đúng format yêu cầu
+ 
     await instance.post(AuthEndpoints.logout, { accessToken: token });
-    // Xóa dữ liệu đăng nhập khỏi localStorage
+   
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("role");
 
     return true;
   } catch (error) {
-    console.error("❌ Lỗi đăng xuất:", error);
+    console.error("Lỗi đăng xuất:", error);
     return false;
   }
 };
@@ -80,7 +82,7 @@ const NotificationEndpoints = {
 // send all
 export const sendAllNotificationAPI = async ({ title, message, type, deviceToken }) => {
   try {
-    console.log("📢 Dữ liệu gửi đi:", { title, message, type, deviceToken });
+    console.log("Dữ liệu gửi đi:", { title, message, type, deviceToken });
 
     const response = await instance.post(NotificationEndpoints.sendAll, {
       title,
@@ -91,7 +93,7 @@ export const sendAllNotificationAPI = async ({ title, message, type, deviceToken
 
     return response;
   } catch (error) {
-    console.error("❌ Lỗi gửi thông báo:", error.response?.data || error);
+    console.error("Lỗi gửi thông báo:", error.response?.data || error);
     throw error;
   }
 };
@@ -110,7 +112,7 @@ export const sendIndividualNotificationAPI = async ({ title, message, type, devi
 
     return response;
   } catch (error) {
-    console.error("❌ Lỗi gửi thông báo cá nhân:", error.response?.data || error);
+    console.error("Lỗi gửi thông báo cá nhân:", error.response?.data || error);
     throw error;
   }
 };
@@ -123,6 +125,7 @@ const ExerciseEndpoints = {
   updateExerciseDataById: "/Exercise/{id}",
   updateExerciseMediaById: "/Exercise/{id}/upload",
   createExercises: "/Exercise", 
+  deleteExercise: "/Exercise/{id}"
 };
 
 // get all exercise
@@ -148,7 +151,7 @@ export const getExercisesAPI = async ({
 
     return response;
   } catch (error) {
-    console.error("❌ Lỗi lấy danh sách bài tập:", error.response?.data || error);
+    console.error("Lỗi lấy danh sách bài tập:", error.response?.data || error);
     throw error;
   }
 };
@@ -159,7 +162,7 @@ export const getExerciseByIdAPI = async (id) => {
     const response = await instance.get(ExerciseEndpoints.getExerciseById.replace("{id}", id));
     return response;
   } catch (error) {
-    console.error(`❌ Lỗi lấy bài tập có ID ${id}:`, error.response?.data || error);
+    console.error(`Lỗi lấy bài tập có ID ${id}:`, error.response?.data || error);
     throw error;
   }
 };
@@ -171,17 +174,17 @@ export const updateExerciseDataByIdAPI = async (id, updateData) => {
 
     const response = await instance.patch(
       ExerciseEndpoints.updateExerciseDataById.replace("{id}", id),
-      updateData, // Đảm bảo giữ nguyên định dạng JSON Patch
+      updateData, 
       {
         headers: { "Content-Type": "application/json-patch+json" },
       }
     );
 
-    console.log("✅ Response:", response.data);
+    console.log("Response:", response.data);
     return response;
   } catch (error) {
     console.error(
-      `❌ Lỗi cập nhật bài tập có ID ${id}:`,
+      `Lỗi cập nhật bài tập có ID ${id}:`,
       error?.response?.data ?? error.message
     );
     throw error;
@@ -195,7 +198,7 @@ export const updateExerciseMediaByIdAPI = async (id, imageFile, videoFile) => {
     if (imageFile) formData.append("ImageFile", imageFile);
     if (videoFile) formData.append("VideoFile", videoFile);
 
-    console.log("🔄 Uploading media for exercise...");
+    console.log("Uploading media for exercise...");
 
     const response = await instance.patch(
       ExerciseEndpoints.updateExerciseMediaById.replace("{id}", id),
@@ -205,10 +208,10 @@ export const updateExerciseMediaByIdAPI = async (id, imageFile, videoFile) => {
       }
     );
 
-    console.log("✅ Upload successful:", response.data);
+    console.log("Upload successful:", response.data);
     return response.data;
   } catch (error) {
-    console.error(`❌ Error uploading media for exercise ID ${id}:`, error.response?.data || error);
+    console.error(`Error uploading media for exercise ID ${id}:`, error.response?.data || error);
     throw error;
   }
 };
@@ -229,21 +232,34 @@ export const createExerciseAPI = async ({ Name, Description, MuscleGroupId, Cate
       if (imageFile) formData.append("ImageFile", imageFile);
       if (videoFile) formData.append("VideoFile", videoFile);
 
-      console.log("🆕 Creating new exercise...");
+      console.log("Creating new exercise...");
 
       const response = await instance.post(ExerciseEndpoints.createExercises, formData, {
           headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("✅ Exercise created successfully:", response.data);
+      console.log("Exercise created successfully:", response.data);
       return response.data;
   } catch (error) {
-      console.error("❌ Error creating exercise:", error.response?.data || error);
+      console.error("Error creating exercise:", error.response?.data || error);
       throw error;
   }
 };
 
+// delete exercise
+export const deleteExerciseAPI = async (id) => {
+  try {
+    console.log(`Deleting exercise with ID: ${id}...`);
+    
+    const response = await instance.delete(ExerciseEndpoints.deleteExercise.replace("{id}", id));
 
+    console.log("Exercise deleted successfully:", response.data);
+    return response;
+  } catch (error) {
+    console.error(`Error deleting exercise ID ${id}:`, error.response?.data || error);
+    throw error;
+  }
+};
 
 
 
@@ -271,7 +287,7 @@ export const getExerciseCategoriesAPI = async ({
 
     return response;
   } catch (error) {
-    console.error("❌ Lỗi lấy danh sách danh mục bài tập:", error.response?.data || error);
+    console.error("Lỗi lấy danh sách danh mục bài tập:", error.response?.data || error);
     throw error;
   }
 };
@@ -302,13 +318,13 @@ export const getMuscleGroupAPI = async ({
 
     return response;
   } catch (error) {
-    console.error("❌ Lỗi lấy danh sách nhóm cơ:", error.response?.data || error);
+    console.error("Lỗi lấy danh sách nhóm cơ:", error.response?.data || error);
     throw error;
   }
 };
 
 
-// ✅ Đăng xuất
+//  Đăng xuất
 // export const logoutAPI = async () => {
 //   try {
 //     const token = localStorage.getItem("token"); // Lấy access token từ localStorage
@@ -332,7 +348,7 @@ export const getMuscleGroupAPI = async ({
 
 //     return true;
 //   } catch (error) {
-//     console.error("❌ Lỗi đăng xuất:", error);
+//     console.error("Lỗi đăng xuất:", error);
 //     return false;
 //   }
 // };

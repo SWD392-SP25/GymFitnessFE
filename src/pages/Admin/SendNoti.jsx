@@ -1,24 +1,42 @@
-import React, { useState } from "react";
-import { sendAllNotificationAPI, sendIndividualNotificationAPI } from "../../services/UsersService";
+import React, { useState, useEffect } from "react";
+import {
+  sendAllNotificationAPI,
+  sendIndividualNotificationAPI
+} from "../../services/UsersService";
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
+import { useNavigate } from "react-router-dom";
 
 const SendNoti = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isSendAll, setIsSendAll] = useState(true); // Toggle giữa 2 form
+  const [isSendAll, setIsSendAll] = useState(true);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const [deviceToken, setDeviceToken] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [role, setRole] = useState(null);
 
+  useEffect(() => {
+
+    const userRole = localStorage.getItem('role');
+
+    if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
+      navigate('/sign-in-sign-up');
+    } else {
+      setRole(userRole);
+    }
+  }, [navigate]);
+  if (!role) return null;
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMessage("");
     setErrorMessage("");
 
-    // Kiểm tra nếu bất kỳ trường nào bị thiếu
+
     if (!title || !message || !type || !deviceToken) {
       setErrorMessage("⚠️ All fields are required.");
       return;
@@ -28,16 +46,16 @@ const SendNoti = () => {
       const payload = { title, message, type, deviceToken };
 
       if (isSendAll) {
-        console.log("📢 Sending to All:", payload);
+        console.log("Sending to All:", payload);
         await sendAllNotificationAPI(payload);
-        setSuccessMessage("📩 Notification sent to all users!");
+        setSuccessMessage("Notification sent to all users!");
       } else {
-        console.log("📩 Sending to Individual:", payload);
+        console.log("Sending to Individual:", payload);
         await sendIndividualNotificationAPI(payload);
-        setSuccessMessage("📩 Notification sent to the individual user!");
+        setSuccessMessage("Notification sent to the individual user!");
       }
 
-      // Reset form sau khi gửi thành công
+
       setTitle("");
       setMessage("");
       setType("");
@@ -47,7 +65,7 @@ const SendNoti = () => {
     }
   };
 
-  // Chuyển đổi giữa Send All & Send Individual
+
   const handleToggle = () => {
     setIsSendAll(!isSendAll);
     setTitle("");
@@ -93,7 +111,6 @@ const SendNoti = () => {
               </span>
             </div>
 
-            {/* Hiển thị thông báo */}
             {successMessage && (
               <div className="mb-4 p-3 text-green-700 bg-green-100 border border-green-400 rounded">
                 {successMessage}
@@ -105,7 +122,6 @@ const SendNoti = () => {
               </div>
             )}
 
-            {/* Form gửi thông báo */}
             <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -150,7 +166,7 @@ const SendNoti = () => {
                   </select>
                 </div>
 
-                {/* Device Token: luôn hiển thị và bắt buộc nhập */}
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Device Token:

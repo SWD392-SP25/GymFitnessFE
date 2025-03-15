@@ -25,17 +25,17 @@ function Dashboard() {
   const [role, setRole] = useState(null);
 
   useEffect(() => {
-    // Lấy role từ localStorage hoặc API (tuỳ cách bạn lưu trữ user info)
-    const userRole = localStorage.getItem('role'); // Ví dụ: admin, staff, user
+    
+    const userRole = localStorage.getItem('role'); 
 
     if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
-      navigate('/sign-in-sign-up'); // Nếu không phải admin hoặc staff, chuyển hướng về trang login
+      navigate('/sign-in-sign-up'); 
     } else {
       setRole(userRole);
     }
   }, [navigate]);
 
-  if (!role) return null; // Chờ role được xác định
+  if (!role) return null; 
 
   return (
     <div className="flex h-screen overflow-hidden">

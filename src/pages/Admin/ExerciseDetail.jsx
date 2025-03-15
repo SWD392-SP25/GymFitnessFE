@@ -5,9 +5,7 @@ import {
     getExerciseCategoriesAPI,
     getMuscleGroupAPI,
     updateExerciseDataByIdAPI,
-    updateExerciseMediaByIdAPI
-}
-    from "../../services/UsersService";
+    updateExerciseMediaByIdAPI }from "../../services/UsersService";
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
 
@@ -24,7 +22,18 @@ const ExerciseDetail = () => {
     const [imageFile, setImageFile] = useState(null);
     const [videoFile, setVideoFile] = useState(null);
     const [mediaUpdateStatus, setMediaUpdateStatus] = useState(null);
+    const [role, setRole] = useState(null);
 
+    useEffect(() => {
+
+        const userRole = localStorage.getItem('role');
+
+        if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
+            navigate('/sign-in-sign-up');
+        } else {
+            setRole(userRole);
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -32,7 +41,7 @@ const ExerciseDetail = () => {
                 const response = await getExerciseCategoriesAPI();
                 setCategories(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy danh mục bài tập:", error);
+                console.error("Lỗi khi lấy danh mục bài tập:", error);
             }
         };
         fetchCategories();
@@ -44,7 +53,7 @@ const ExerciseDetail = () => {
                 const response = await getMuscleGroupAPI();
                 setMuscles(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy nhóm cơ:", error);
+                console.error("Lỗi khi lấy nhóm cơ:", error);
             }
         };
         fetchMuscles();
@@ -54,7 +63,7 @@ const ExerciseDetail = () => {
         const fetchExercise = async () => {
             try {
                 const response = await getExerciseByIdAPI(id);
-                console.log("📌 info:", response);
+                console.log("info:", response);
                 if (!response || typeof response !== "object") {
                     throw new Error("Không tìm thấy bài tập!");
                 }
@@ -78,13 +87,16 @@ const ExerciseDetail = () => {
             { op: "replace", path: "/description", value: exercise.description },
             { op: "replace", path: "/categoryId", value: exercise.categoryId },
             { op: "replace", path: "/muscleGroupId", value: exercise.muscleGroupId },
+            { op: "replace", path: "/EquipmentNeeded", value: exercise.equipmentNeeded },
+            { op: "replace", path: "/Instructions", value: exercise.instructions },
+            { op: "replace", path: "/Precautions", value: exercise.precautions },
         ];
 
         try {
             await updateExerciseDataByIdAPI(id, updateData);
             setUpdateStatus({ success: true, message: "ERROR!!!!!!!!!!!!!!!!" });
         } catch (error) {
-            console.error("❌ Lỗi khi cập nhật bài tập:", error);
+            console.error("Lỗi khi cập nhật bài tập:", error);
             setUpdateStatus({ success: false, message: "Cập nhật thất bại!" });
         }
     };
@@ -98,8 +110,8 @@ const ExerciseDetail = () => {
             const updatedExercise = await getExerciseByIdAPI(id);
             setExercise(updatedExercise);
         } catch (error) {
-            console.error("❌ Lỗi khi cập nhật media:", error);
-            setMediaUpdateStatus({ success: false, message: "❌ Cập nhật media thất bại!" });
+            console.error("Lỗi khi cập nhật media:", error);
+            setMediaUpdateStatus({ success: false, message: "Cập nhật media thất bại!" });
         }
     };
 
@@ -169,6 +181,29 @@ const ExerciseDetail = () => {
                                         </option>
                                     ))}
                                 </select>
+                                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Equipment:</label>
+                                <input
+                                    type="text"
+                                    className="mt-1 p-2 block w-full border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+                                    value={exercise.equipmentNeeded}
+                                    onChange={(e) => setExercise({ ...exercise, equipmentNeeded: e.target.value })}
+                                />
+                                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Instructions:</label>
+                                <input
+                                    type="text"
+                                    className="mt-1 p-2 block w-full border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+                                    value={exercise.instructions}
+                                    onChange={(e) => setExercise({ ...exercise, instructions: e.target.value })}
+                                />
+                                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Precautions:</label>
+                                <input
+                                    type="text"
+                                    className="mt-1 p-2 block w-full border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
+                                    value={exercise.precautions}
+                                    onChange={(e) => setExercise({ ...exercise, precautions: e.target.value })}
+                                />
+                               
+                                
 
                                 <button
                                     className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-gray-300 transition"
@@ -186,7 +221,7 @@ const ExerciseDetail = () => {
 
                         <hr className="border-gray-300 dark:border-gray-600" />
 
-                        {/* PHẦN 2: Ảnh & Video */}
+                    
                         <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 text-center mb-4">Media</h2>
 
                         <div className="mb-6 flex flex-col items-start space-y-4">

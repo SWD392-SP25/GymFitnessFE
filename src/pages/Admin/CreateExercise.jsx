@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getExerciseCategoriesAPI, getMuscleGroupAPI, createExerciseAPI } from "../../services/UsersService";
+import { 
+    getExerciseCategoriesAPI, 
+    getMuscleGroupAPI, 
+    createExerciseAPI } from "../../services/UsersService";
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
 
@@ -15,37 +18,48 @@ const CreateExercise = () => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [muscleGroup, setMuscleGroup] = useState("");
-    const [difficultyLevel, setDifficultyLevel] = useState(""); // Mức độ khó
-    const [equipmentNeeded, setEquipmentNeeded] = useState(""); // Dụng cụ cần thiết
-    const [instructions, setInstructions] = useState(""); // Hướng dẫn
-    const [precautions, setPrecautions] = useState(""); // Lưu ý
+    const [difficultyLevel, setDifficultyLevel] = useState(""); 
+    const [equipmentNeeded, setEquipmentNeeded] = useState(""); 
+    const [instructions, setInstructions] = useState(""); 
+    const [precautions, setPrecautions] = useState(""); 
     const [imageFile, setImageFile] = useState(null);
     const [videoFile, setVideoFile] = useState(null);
 
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [role, setRole] = useState(null);
 
-    // Lấy danh mục bài tập
+    useEffect(() => {
+
+        const userRole = localStorage.getItem('role');
+
+        if (!userRole || (userRole !== 'Admin' && userRole !== 'Staff')) {
+            navigate('/sign-in-sign-up');
+        } else {
+            setRole(userRole);
+        }
+    }, [navigate]);
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await getExerciseCategoriesAPI();
                 setCategories(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy danh mục bài tập:", error);
+                console.error("Lỗi khi lấy danh mục bài tập:", error);
             }
         };
         fetchCategories();
     }, []);
 
-    // Lấy nhóm cơ
+
     useEffect(() => {
         const fetchMuscles = async () => {
             try {
                 const response = await getMuscleGroupAPI();
                 setMuscles(response || []);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy nhóm cơ:", error);
+                console.error("Lỗi khi lấy nhóm cơ:", error);
             }
         };
         fetchMuscles();
@@ -74,7 +88,7 @@ const CreateExercise = () => {
             navigate("/Exercise");
         } catch (error) {
             setErrorMessage("Failed to create exercise.");
-            console.error("❌ Error:", error);
+            console.error("Error:", error);
         }
     };
 
