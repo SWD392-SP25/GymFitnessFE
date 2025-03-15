@@ -23,10 +23,14 @@ import ConfirmModal from './components/modals/ConfirmModal';
 import FormModal from './components/modals/FormModal';
 
 // Import pages
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Admin/Dashboard';
 import Landing from './pages/Landing';
 import SigninSignup from './pages/SigninSignup';
 import PTDashboard from './pages/PT/PTDashboard';
+import SendNoti from './pages/Admin/SendNoti';
+import Exercise from './pages/Admin/Exercise';
+import ExerciseDetail from './pages/Admin/ExerciseDetail';
+import CreateExercise from './pages/Admin/CreateExercise';
 
 function App() {
   const location = useLocation();
@@ -43,9 +47,14 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sign-in-sign-up" element={<SigninSignup />} />
-        
+        <Route path="/sendNoti" element={<SendNoti/>}/>
+        <Route path="/Exercise" element={<Exercise/>} />
+        <Route path="/Exercise-Detail/:id" element={<ExerciseDetail />} />
+        <Route path="/Create-Exercise" element={<CreateExercise/>} />
+
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
+        
       </Routes>
     </AuthProvider>
   );

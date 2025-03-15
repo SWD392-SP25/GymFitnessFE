@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth, googleProvider, signInWithPopup } from "../firebaseConfig";
-import { loginAPI } from "../services/auth/UsersService"; // Gọi API backend
+import { loginAPI } from "../services/UsersService"; // Gọi API backend
 import styles from "./SigninSignup.module.css";
 
 const SigninSignup = () => {

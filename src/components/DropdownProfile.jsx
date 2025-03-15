@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
 import UserAvatar from '../images/user-avatar-32.png';
-import { logoutAPI } from "../services/auth/UsersService"; // Import API logout
+import { logoutAPI } from "../services/UsersService"; // Import API logout
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);

@@ -46,7 +46,7 @@
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../config";
 import { refreshTokenAPI } from "./UsersService"; // API làm mới token
 
 const instance = axios.create({
@@ -83,7 +83,7 @@ instance.interceptors.response.use(
       if (!refreshToken) {
         localStorage.clear();
         localStorage.setItem("sessionExpired", "true");
-        window.location.href = "/login";
+        window.location.href = "/sign-in-sign-up";
         return Promise.reject(error);
       }
 
@@ -114,7 +114,7 @@ instance.interceptors.response.use(
       } catch (refreshError) {
         localStorage.clear();
         localStorage.setItem("sessionExpired", "true");
-        window.location.href = "/login";
+        window.location.href = "/sign-in-sign-up";
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
