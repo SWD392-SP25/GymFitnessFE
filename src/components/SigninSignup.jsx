@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { auth, googleProvider, signInWithPopup } from "../firebaseConfig"; // Import Firebase
+import { useLocation, useNavigate } from "react-router-dom";
+import { auth, googleProvider, signInWithPopup } from "../firebaseConfig";
+import { loginAPI } from "../services/UsersService"; // Gọi API backend
 import styles from "./SigninSignup.module.css";
 
 const SigninSignup = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const mode = queryParams.get("mode");
 
@@ -19,14 +21,38 @@ const SigninSignup = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
-      console.log("User:", user);
-      alert(`Welcome, ${user.displayName}!`);
+  
+      if (user) {
+        const idToken = await user.getIdToken(); // Lấy idToken từ Firebase
+        console.log("Google ID Token:", idToken);
+  
+        // Gửi idToken lên backend để xác thực
+        const response = await loginAPI(idToken);
+  
+        // Lưu token và role từ backend vào localStorage
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem("role", response.role); // Lưu role để sử dụng sau
+        if ((response.role !== 'Admin' && response.role !== 'Staff')) {
+          alert(`You do not have permission to access this feature!`);
+        } else alert(`Welcome, ${user.displayName}!`);
+        
+  
+        // ✅ Điều hướng dựa trên role
+        if (response.role === "Staff") {
+          navigate("/dashboard");
+        // } else if (response.role === "pt") {
+        //   navigate("/pt/dashboard");
+        // } else {
+        //   navigate("/dashboard"); // Mặc định cho user thường
+         }
+      }
     } catch (error) {
       console.error("Lỗi đăng nhập:", error.message);
       alert("Error! Please try again.");
     }
   };
+  
 
   return (
     <div className={styles["auth-container"]} data-aos="zoom-out-down">

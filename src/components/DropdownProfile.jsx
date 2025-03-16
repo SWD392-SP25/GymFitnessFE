@@ -1,17 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-
 import UserAvatar from '../images/user-avatar-32.png';
+import { logoutAPI } from "../services/UsersService"; // Import API logout
 
-function DropdownProfile({
-  align
-}) {
-
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const navigate = useNavigate(); // Hook điều hướng
 
   // close on click outside
   useEffect(() => {
@@ -33,6 +30,14 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  // Xử lý đăng xuất
+  const handleLogout = async () => {
+    const success = await logoutAPI();
+    if (success) {
+      navigate('/sign-in-sign-up'); // Điều hướng về trang đăng nhập
+    }
+  };
 
   return (
     <div className="relative inline-flex">
@@ -62,11 +67,7 @@ function DropdownProfile({
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
+        <div ref={dropdown} onFocus={() => setDropdownOpen(true)} onBlur={() => setDropdownOpen(false)}>
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200 dark:border-gray-700/60">
             <div className="font-medium text-gray-800 dark:text-gray-100">Acme Inc.</div>
             <div className="text-xs text-gray-500 dark:text-gray-400 italic">Administrator</div>
@@ -82,19 +83,18 @@ function DropdownProfile({
               </Link>
             </li>
             <li>
-              <Link
-                className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+              <button
+                className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3 w-full text-left"
+                onClick={handleLogout} // Gọi hàm logout
               >
                 Sign Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
       </Transition>
     </div>
-  )
+  );
 }
 
 export default DropdownProfile;
