@@ -15,8 +15,24 @@ import instance from "./customize-axios";
 // 11 update exercise: img and video
 // 12 delete exercise 
 // 13 create exercise 
+// 14 get all users 
+// 15 ban user
+// 16 get user by email
+// 17 get all staffs 
+// 18 get staff by email // be đang sửa
+// 19 get all appointment types ***
+// 20 get all appointments ***
+// 21
+// 22 
+// 23
+// 24
+// 25
+// 26
+// 27
+// 28
+// 29
+// 30
 
-// LÀM THÊM 13 CÁI NỮA THOI RỒI MÌNH ĐỔ THỪA LÀ TẠI BACK END CHƯA CÓ ĐỦ API ; )
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------
 const AuthEndpoints = {
@@ -322,6 +338,168 @@ export const getMuscleGroupAPI = async ({
     throw error;
   }
 };
+
+
+//---------------------------------------------------UsersEndpoints----------------------------------------------
+
+const UsersEndpoints = {
+  getUsers: "/Users", 
+  banUser: "/Users/ban/{email}",
+  getUserByEmail: "/Users/{email}"
+};
+
+// get all users
+export const getUsersAPI = async ({ 
+  filterOn = "", 
+  filterQuery = "", 
+} = {}) => {
+  try {
+    const response = await instance.get(UsersEndpoints.getUsers, {
+      params: {
+        filterOn,
+        filterQuery,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Lỗi lấy danh sách người dùng", error.response?.data || error);
+    throw error;
+  }
+};
+
+// ban user 
+export const banUserAPI = async (email) => {
+  try {
+    const response = await instance.post(UsersEndpoints.banUser.replace("{email}", email));
+    return response;
+  } catch (error) {
+    console.error(`Lỗi ban user email ${email}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// get user by email 
+export const getUserByEmailAPI = async (email) => {
+  try {
+    const response = await instance.get(UsersEndpoints.getUserByEmail.replace("{email}", email));
+    return response;
+  } catch (error) {
+    console.error(`Lỗi get user ${email}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+
+
+//---------------------------------------------------StaffsEndpoints----------------------------------------------
+
+
+const StaffsEndpoints = {
+  getStaffs: "/Staff", 
+};
+
+// get all staffs
+export const getStaffsAPI = async ({ 
+  filterOn = "", 
+  filterQuery = "", 
+  sortOn = "", 
+  isAscending = true, 
+  pageNumber = 1, 
+  pageSize = 5 
+} = {}) => {
+  try {
+    const response = await instance.get(StaffsEndpoints.getStaffs, {
+      params: {
+        filterOn,
+        filterQuery,
+        sortOn,
+        isAscending,
+        pageNumber,
+        pageSize,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Lỗi lấy danh sách nhân viên:", error.response?.data || error);
+    throw error;
+  }
+};
+
+//---------------------------------------------------AppointmentTypeEndpoints----------------------------------------------
+
+const AppointmentTypeEndpoints = {
+  getAppointmentTypes: "/AppointmentType", 
+};
+
+// get all appointment types
+export const getAppointmentTypesAPI = async ({ 
+  filterOn = "", 
+  filterQuery = "", 
+  pageNumber = 1, 
+  pageSize = 5 
+} = {}) => {
+  try {
+    const response = await instance.get(AppointmentTypeEndpoints.getAppointmentTypes, {
+      params: {
+        filterOn,
+        filterQuery,
+        pageNumber,
+        pageSize,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Lỗi lấy danh sách loại lịch hẹn:", error.response?.data || error);
+    throw error;
+  }
+};
+
+//---------------------------------------------------AppointmentEndpoints----------------------------------------------
+
+const AppointmentEndpoints = {
+  getAppointments: "/Appointment", 
+};
+
+// get all appointments
+export const getAppointmentsAPI = async ({ 
+  filterOn = "", 
+  filterQuery = "", 
+  sortBy = "", 
+  isAscending = true, 
+  pageNumber = 1, 
+  pageSize = 5 
+} = {}) => {
+  try {
+    const response = await instance.get(AppointmentEndpoints.getAppointments, {
+      params: {
+        filterOn,
+        filterQuery,
+        sortBy,
+        isAscending,
+        pageNumber,
+        pageSize,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Lỗi lấy danh sách lịch hẹn:", error.response?.data || error);
+    throw error;
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
 
 //  Đăng xuất
