@@ -20,12 +20,12 @@ import instance from "./customize-axios";
 // 16 get user by email
 // 17 get all staffs 
 // 18 get staff by email // be đang sửa
-// 19 get all appointment types ***
-// 20 get all appointments ***
-// 21
-// 22 
-// 23
-// 24
+// 19 get all appointment types 
+// 20 get all appointments 
+// 21 get appointment types by id
+// 22 update appointment type by id
+// 23 create appointment type 
+// 24 delete appointment type
 // 25
 // 26
 // 27
@@ -36,9 +36,9 @@ import instance from "./customize-axios";
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------
 const AuthEndpoints = {
-  login: "/auth/login", 
-  refreshToken: "/auth/refresh-token", 
-  logout: "/auth/logout", 
+  login: "/auth/login",
+  refreshToken: "/auth/refresh-token",
+  logout: "/auth/logout",
 };
 
 // login
@@ -73,9 +73,9 @@ export const logoutAPI = async () => {
 
     if (!token) throw new Error("Không tìm thấy access token!");
 
- 
+
     await instance.post(AuthEndpoints.logout, { accessToken: token });
-   
+
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("role");
@@ -90,8 +90,8 @@ export const logoutAPI = async () => {
 
 //---------------------------------------------------NotificationEndpoints----------------------------------------------
 const NotificationEndpoints = {
-  sendAll: "/Notification/sendall", 
-  sendIndividual: "/Notification/sendindividual", 
+  sendAll: "/Notification/sendall",
+  sendIndividual: "/Notification/sendindividual",
 
 };
 
@@ -136,22 +136,22 @@ export const sendIndividualNotificationAPI = async ({ title, message, type, devi
 
 //---------------------------------------------------ExerciseEndpoints----------------------------------------------
 const ExerciseEndpoints = {
-  getExercises: "/Exercise", 
+  getExercises: "/Exercise",
   getExerciseById: "/Exercise/{id}",
   updateExerciseDataById: "/Exercise/{id}",
   updateExerciseMediaById: "/Exercise/{id}/upload",
-  createExercises: "/Exercise", 
+  createExercises: "/Exercise",
   deleteExercise: "/Exercise/{id}"
 };
 
 // get all exercise
-export const getExercisesAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  sortBy = "", 
-  isAscending = true, 
-  pageNumber = 1, 
-  pageSize = 5 
+export const getExercisesAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  sortBy = "",
+  isAscending = true,
+  pageNumber = 1,
+  pageSize = 5
 } = {}) => {
   try {
     const response = await instance.get(ExerciseEndpoints.getExercises, {
@@ -190,7 +190,7 @@ export const updateExerciseDataByIdAPI = async (id, updateData) => {
 
     const response = await instance.patch(
       ExerciseEndpoints.updateExerciseDataById.replace("{id}", id),
-      updateData, 
+      updateData,
       {
         headers: { "Content-Type": "application/json-patch+json" },
       }
@@ -235,30 +235,30 @@ export const updateExerciseMediaByIdAPI = async (id, imageFile, videoFile) => {
 // create new exercise
 export const createExerciseAPI = async ({ Name, Description, MuscleGroupId, CategoryId, DifficultyLevel, EquipmentNeeded, Instructions, Precautions, imageFile, videoFile }) => {
   try {
-      const formData = new FormData();
-      formData.append("Name", Name);
-      formData.append("Description", Description);
-      formData.append("MuscleGroupId", MuscleGroupId);
-      formData.append("CategoryId", CategoryId);
-      formData.append("DifficultyLevel", DifficultyLevel);
-      formData.append("EquipmentNeeded", EquipmentNeeded);
-      formData.append("Instructions", Instructions);
-      formData.append("Precautions", Precautions);
+    const formData = new FormData();
+    formData.append("Name", Name);
+    formData.append("Description", Description);
+    formData.append("MuscleGroupId", MuscleGroupId);
+    formData.append("CategoryId", CategoryId);
+    formData.append("DifficultyLevel", DifficultyLevel);
+    formData.append("EquipmentNeeded", EquipmentNeeded);
+    formData.append("Instructions", Instructions);
+    formData.append("Precautions", Precautions);
 
-      if (imageFile) formData.append("ImageFile", imageFile);
-      if (videoFile) formData.append("VideoFile", videoFile);
+    if (imageFile) formData.append("ImageFile", imageFile);
+    if (videoFile) formData.append("VideoFile", videoFile);
 
-      console.log("Creating new exercise...");
+    console.log("Creating new exercise...");
 
-      const response = await instance.post(ExerciseEndpoints.createExercises, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-      });
+    const response = await instance.post(ExerciseEndpoints.createExercises, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-      console.log("Exercise created successfully:", response.data);
-      return response.data;
+    console.log("Exercise created successfully:", response.data);
+    return response.data;
   } catch (error) {
-      console.error("Error creating exercise:", error.response?.data || error);
-      throw error;
+    console.error("Error creating exercise:", error.response?.data || error);
+    throw error;
   }
 };
 
@@ -266,7 +266,7 @@ export const createExerciseAPI = async ({ Name, Description, MuscleGroupId, Cate
 export const deleteExerciseAPI = async (id) => {
   try {
     console.log(`Deleting exercise with ID: ${id}...`);
-    
+
     const response = await instance.delete(ExerciseEndpoints.deleteExercise.replace("{id}", id));
 
     console.log("Exercise deleted successfully:", response.data);
@@ -281,15 +281,15 @@ export const deleteExerciseAPI = async (id) => {
 
 //---------------------------------------------------CategoryEndpoints----------------------------------------------
 const CategoryEndpoints = {
-  getCategories: "/ExerciseCategory", 
+  getCategories: "/ExerciseCategory",
 };
 
 // get all cate 
-export const getExerciseCategoriesAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  pageNumber = 1, 
-  pageSize = 10 
+export const getExerciseCategoriesAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  pageNumber = 1,
+  pageSize = 10
 } = {}) => {
   try {
     const response = await instance.get(CategoryEndpoints.getCategories, {
@@ -311,16 +311,16 @@ export const getExerciseCategoriesAPI = async ({
 
 //---------------------------------------------------MuscleEndpoints----------------------------------------------
 const MuscleEndpoints = {
-  getMuscles: "/MuscleGroup", 
+  getMuscles: "/MuscleGroup",
 };
 
 
 // get all muscle group
-export const getMuscleGroupAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  pageNumber = 1, 
-  pageSize = 10 
+export const getMuscleGroupAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  pageNumber = 1,
+  pageSize = 10
 } = {}) => {
   try {
     const response = await instance.get(MuscleEndpoints.getMuscles, {
@@ -343,15 +343,15 @@ export const getMuscleGroupAPI = async ({
 //---------------------------------------------------UsersEndpoints----------------------------------------------
 
 const UsersEndpoints = {
-  getUsers: "/Users", 
+  getUsers: "/Users",
   banUser: "/Users/ban/{email}",
   getUserByEmail: "/Users/{email}"
 };
 
 // get all users
-export const getUsersAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
+export const getUsersAPI = async ({
+  filterOn = "",
+  filterQuery = "",
 } = {}) => {
   try {
     const response = await instance.get(UsersEndpoints.getUsers, {
@@ -396,17 +396,17 @@ export const getUserByEmailAPI = async (email) => {
 
 
 const StaffsEndpoints = {
-  getStaffs: "/Staff", 
+  getStaffs: "/Staff",
 };
 
 // get all staffs
-export const getStaffsAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  sortOn = "", 
-  isAscending = true, 
-  pageNumber = 1, 
-  pageSize = 5 
+export const getStaffsAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  sortOn = "",
+  isAscending = true,
+  pageNumber = 1,
+  pageSize = 5
 } = {}) => {
   try {
     const response = await instance.get(StaffsEndpoints.getStaffs, {
@@ -430,15 +430,19 @@ export const getStaffsAPI = async ({
 //---------------------------------------------------AppointmentTypeEndpoints----------------------------------------------
 
 const AppointmentTypeEndpoints = {
-  getAppointmentTypes: "/AppointmentType", 
+  getAppointmentTypes: "/AppointmentType",
+  getAppointmentTypeById: "/AppointmentType/{id}",
+  updateAppointmentTypeById: "/AppointmentType/{id}",
+  createAppointmentType: "/AppointmentType",
+  deleteAppointmentType: "/AppointmentType/{id}"
 };
 
 // get all appointment types
-export const getAppointmentTypesAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  pageNumber = 1, 
-  pageSize = 5 
+export const getAppointmentTypesAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  pageNumber = 1,
+  pageSize = 5
 } = {}) => {
   try {
     const response = await instance.get(AppointmentTypeEndpoints.getAppointmentTypes, {
@@ -457,20 +461,100 @@ export const getAppointmentTypesAPI = async ({
   }
 };
 
+// get appointment type by id 
+export const getAppointmentTypeByIdAPI = async (id) => {
+  try {
+    const response = await instance.get(AppointmentTypeEndpoints.getAppointmentTypeById.replace("{id}", id));
+    return response;
+  } catch (error) {
+    console.error(`Lỗi get type ${typeId}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// update type 
+export const updateAppointmentTypeByIdAPI = async (id, updateData) => {
+  try {
+    console.log("🔄 Gửi request PATCH với data:", JSON.stringify(updateData, null, 2));
+
+    const response = await instance.patch(
+      AppointmentTypeEndpoints.updateAppointmentTypeById.replace("{id}", id),
+      updateData,
+      {
+        headers: { "Content-Type": "application/json-patch+json" },
+      }
+    );
+
+    console.log("Response:", response.data);
+    return response;
+  } catch (error) {
+    console.error(
+      `Lỗi cập nhật loại có ID ${id}:`,
+      error?.response?.data ?? error.message
+    );
+    throw error;
+  }
+};
+
+// create new type 
+export const createAppointmentTypeAPI = async ({
+  name,
+  description,
+  durationMinutes,
+  price,
+}) => {
+  try {
+    // Chuyển đổi dữ liệu thành JSON
+    const data = {
+      name,
+      description,
+      durationMinutes,
+      price,
+    };
+
+    console.log("Creating new type...");
+
+    const response = await instance.post(AppointmentTypeEndpoints.createAppointmentType, data, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("type created successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating type:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// delete type
+export const deleteAppointmentTypeAPI = async (id) => {
+  try {
+    console.log(`Deleting type with ID: ${id}...`);
+
+    const response = await instance.delete(AppointmentTypeEndpoints.deleteAppointmentType.replace("{id}", id));
+
+    console.log("type deleted successfully:", response.data);
+    return response;
+  } catch (error) {
+    console.error(`Error deleting type ID ${id}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
 //---------------------------------------------------AppointmentEndpoints----------------------------------------------
 
 const AppointmentEndpoints = {
-  getAppointments: "/Appointment", 
+  getAppointments: "/Appointment",
 };
 
 // get all appointments
-export const getAppointmentsAPI = async ({ 
-  filterOn = "", 
-  filterQuery = "", 
-  sortBy = "", 
-  isAscending = true, 
-  pageNumber = 1, 
-  pageSize = 5 
+export const getAppointmentsAPI = async ({
+  filterOn = "",
+  filterQuery = "",
+  sortBy = "",
+  isAscending = true,
+  pageNumber = 1,
+  pageSize = 5
 } = {}) => {
   try {
     const response = await instance.get(AppointmentEndpoints.getAppointments, {
@@ -510,7 +594,7 @@ export const getAppointmentsAPI = async ({
 //     if (!token) throw new Error("Không tìm thấy access token!");
 
 //     // Gửi request logout lên backend kèm token
-//     await instance.post(AuthEndpoints.logout, {body: `${token}`}, { 
+//     await instance.post(AuthEndpoints.logout, {body: `${token}`}, {
 //       // headers: {
 //       //   Authorization: `Bearer ${token}`, // Truyền token vào header
 //       // },

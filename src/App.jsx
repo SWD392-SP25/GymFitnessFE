@@ -34,6 +34,10 @@ import CreateExercise from './pages/Admin/CreateExercise';
 import Users from './pages/Admin/Users';
 import UserDetail from './pages/Admin/UserDetail';
 import Staffs from './pages/Admin/Staffs';
+import Appointment from './pages/Admin/Appointment';
+import AppointmentType from './pages/Admin/AppointmentType';
+import AppointmentTypeDetail from './pages/Admin/AppointmentTypeDetail';
+import CreateAppointmentType from './pages/Admin/CreateAppointmentType';
 
 function App() {
   const location = useLocation();
@@ -57,6 +61,10 @@ function App() {
         <Route path="/Users" element={<Users/>} />
         <Route path="/User-Detail/:email" element={<UserDetail />} />
         <Route path="/Staffs" element={<Staffs/>} />
+        <Route path="/Appointments" element={<Appointment/>} />
+        <Route path="/Appointment-Types" element={<AppointmentType/>} />
+        <Route path="/Appointment-Type-Detail/:id" element={<AppointmentTypeDetail />} />
+        <Route path="/Create-Appointment-Type" element={<CreateAppointmentType/>} />
 
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
