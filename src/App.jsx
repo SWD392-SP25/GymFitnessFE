@@ -31,6 +31,9 @@ import SendNoti from './pages/Admin/SendNoti';
 import Exercise from './pages/Admin/Exercise';
 import ExerciseDetail from './pages/Admin/ExerciseDetail';
 import CreateExercise from './pages/Admin/CreateExercise';
+import Users from './pages/Admin/Users';
+import UserDetail from './pages/Admin/UserDetail';
+import Staffs from './pages/Admin/Staffs';
 
 function App() {
   const location = useLocation();
@@ -51,6 +54,9 @@ function App() {
         <Route path="/Exercise" element={<Exercise/>} />
         <Route path="/Exercise-Detail/:id" element={<ExerciseDetail />} />
         <Route path="/Create-Exercise" element={<CreateExercise/>} />
+        <Route path="/Users" element={<Users/>} />
+        <Route path="/User-Detail/:email" element={<UserDetail />} />
+        <Route path="/Staffs" element={<Staffs/>} />
 
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
