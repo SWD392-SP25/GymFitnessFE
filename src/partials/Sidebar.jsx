@@ -176,17 +176,17 @@ function Sidebar({
                   );
                 }}
               </SidebarLinkGroup>
-              <SidebarLinkGroup activecondition={pathname.includes("pt-dashboard")}>
+              <SidebarLinkGroup activecondition={pathname.includes("pt")}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <NavLink
                         end
-                        to="/pt-dashboard"
-                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname.includes("pt-dashboard") ? "" : "hover:text-gray-900 dark:hover:text-white"}`}
+                        to="/pt/*"
+                        className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${pathname.includes("pt") ? "" : "hover:text-gray-900 dark:hover:text-white"}`}
                       >
                         <div className="flex items-center">
-                          <svg className={`shrink-0 fill-current ${pathname.includes('pt-dashboard') ? 'text-violet-500' : 'text-gray-400 dark:text-gray-500'}`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                          <svg className={`shrink-0 fill-current ${pathname.includes('pt') ? 'text-violet-500' : 'text-gray-400 dark:text-gray-500'}`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                             <path d="M7.3 8.7c-.4-.4-.4-1 0-1.4l7-7c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-7 7c-.4.4-1 .4-1.4 0ZM7 5.6 2.4 1C1.5.1 0 .7 0 2v7c0 .8.3 1.5.9 2.1l4.6 4.6c.5.5 1.2.5 1.7 0l5.7-5.7c.5-.5.5-1.2 0-1.7L7 5.6Z" />
                           </svg>
                           <span className="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
