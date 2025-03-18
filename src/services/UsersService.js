@@ -26,11 +26,11 @@ import instance from "./customize-axios";
 // 22 update appointment type by id
 // 23 create appointment type 
 // 24 delete appointment type
-// 25
-// 26
-// 27
-// 28
-// 29
+// 25 fetch all subscriptions
+// 26 fetch subscription by id
+// 27 create subscription
+// 28 update subscription by id
+// 29 delete subscription by id
 // 30
 
 
