@@ -31,7 +31,7 @@ import instance from "./customize-axios";
 // 27 create subscription
 // 28 update subscription by id
 // 29 delete subscription by id
-// 30
+// 30 get all subscription plans
 
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------

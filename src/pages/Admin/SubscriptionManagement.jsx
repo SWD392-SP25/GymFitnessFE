@@ -10,9 +10,257 @@ import {
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
 import Button from "../../components/ui/Button";
-import FormModal from "../../components/modals/FormModal";
 import ConfirmModal from "../../components/modals/ConfirmModal";
 
+// Compact Subscription Form Component 
+const CompactSubscriptionForm = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  formData,
+  handleInputChange,
+  title,
+  submitText
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        onClick={onClose}
+      ></div>
+      
+      {/* Modal */}
+      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 overflow-hidden">
+        {/* Modal Header */}
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+        </div>
+        
+        {/* Form */}
+        <form onSubmit={onSubmit}>
+          {/* Form Content */}
+          <div className="px-6 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto p-1">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Plan ID
+                </label>
+                <input
+                  type="number"
+                  name="subscriptionPlanId"
+                  value={formData.subscriptionPlanId}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sub (Optional)
+                </label>
+                <input
+                  type="text"
+                  name="sub"
+                  value={formData.sub || ""}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Status
+                </label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                >
+                  <option value="">Select status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  End Date
+                </label>
+                <input
+                  type="date"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Payment Frequency
+                </label>
+                <select
+                  name="paymentFrequency"
+                  value={formData.paymentFrequency}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                >
+                  <option value="">Select frequency</option>
+                  <option value="Monthly">Monthly</option>
+                  <option value="Quarterly">Quarterly</option>
+                  <option value="Yearly">Yearly</option>
+                </select>
+              </div>
+              
+              <div className="flex items-center md:col-span-2">
+                <input
+                  type="checkbox"
+                  id="autoRenew"
+                  name="autoRenew"
+                  checked={formData.autoRenew}
+                  onChange={handleInputChange}
+                  className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                />
+                <label htmlFor="autoRenew" className="ml-2 text-sm text-gray-700">
+                  Auto Renew
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          {/* Form Footer */}
+          <div className="px-6 py-4 bg-gray-50 flex justify-end space-x-3">
+            <button 
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit"
+              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+            >
+              {submitText}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// Invoice Modal Component
+const InvoiceModal = ({ isOpen, onClose, invoices }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+        onClick={onClose}
+      ></div>
+      
+      {/* Modal */}
+      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 overflow-hidden">
+        {/* Modal Header */}
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-medium text-gray-900">Subscription Invoices</h3>
+        </div>
+        
+        {/* Content */}
+        <div className="px-6 py-4">
+          {invoices.length === 0 ? (
+            <p className="text-center text-gray-500">No invoices found for this subscription.</p>
+          ) : (
+            <div className="space-y-4 max-h-80 overflow-auto">
+              {invoices.map(invoice => (
+                <div key={invoice.invoiceId} className="border p-4 rounded-lg">
+                  <div className="flex justify-between">
+                    <div>
+                      <p className="font-semibold">Invoice #{invoice.invoiceId}</p>
+                      <p className="text-sm text-gray-600">Amount: ${invoice.amount}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm">Due: {new Date(invoice.dueDate).toLocaleDateString()}</p>
+                      {invoice.paidDate && (
+                        <p className="text-sm text-green-600">Paid: {new Date(invoice.paidDate).toLocaleDateString()}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="mt-2 flex justify-between items-center">
+                    <p className="text-xs text-gray-500">
+                      Method: {invoice.paymentMethod || 'N/A'}
+                    </p>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      invoice.status === 'Paid' ? 'bg-green-100 text-green-800' : 
+                      invoice.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {invoice.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* Footer */}
+        <div className="px-6 py-4 bg-gray-50 flex justify-end space-x-3">
+          <button 
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main component
 const SubscriptionManagement = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,14 +282,13 @@ const SubscriptionManagement = () => {
   
   // Initialize form with empty values
   const [formData, setFormData] = useState({
-    userEmail: "",
-    subscriptionPlanId: "",
-    subscriptionPlanName: "",
+    email: "",
+    subscriptionPlanId: 0,
     startDate: "",
     endDate: "",
     status: "",
-    autoRenew: false,
     paymentFrequency: "",
+    autoRenew: false,
     sub: null
   });
 
@@ -60,37 +307,38 @@ const SubscriptionManagement = () => {
         setLoading(true);
         setError(null);
         
-        // First, try to get data from localStorage
-        const cachedData = localStorage.getItem('subscriptions');
-        const cachedTimestamp = localStorage.getItem('subscriptions_timestamp');
-        const isDataValid = cachedData && cachedTimestamp && 
-          (Date.now() - parseInt(cachedTimestamp)) < 30 * 60 * 1000; // 30 minutes cache
-        
-        if (isDataValid) {
-          const parsedData = JSON.parse(cachedData);
-          setSubscriptions(parsedData);
-        }
-        
         const response = await getAllSubscriptionsAPI({
+          filterOn: searchQuery,
+          filterQuery: searchQuery,
+          sortBy: "subscriptionId",
+          isAscending: true,
           pageNumber: currentPage,
           pageSize: pageSize,
-          filterOn: searchQuery ? "userEmail" : "",
-          filterQuery: searchQuery
         });
         
         if (response) {
           setSubscriptions(response);
-          localStorage.setItem('subscriptions', JSON.stringify(response));
-          localStorage.setItem('subscriptions_timestamp', Date.now().toString());
+          
+          // Only cache when not filtering
+          if (!searchQuery) {
+            localStorage.setItem('subscriptions', JSON.stringify(response));
+            localStorage.setItem('subscriptions_timestamp', Date.now().toString());
+          }
         }
       } catch (err) {
         setError("Failed to load subscriptions. Please try again later.");
         console.error('Error fetching subscriptions:', err);
         
         // If API call fails but we have cached data, keep using it
-        const cachedData = localStorage.getItem('subscriptions');
-        if (cachedData) {
-          setSubscriptions(JSON.parse(cachedData));
+        if (!searchQuery) {
+          const cachedData = localStorage.getItem('subscriptions');
+          if (cachedData) {
+            try {
+              setSubscriptions(JSON.parse(cachedData));
+            } catch (e) {
+              console.warn("Error parsing cached data", e);
+            }
+          }
         }
       } finally {
         setLoading(false);
@@ -103,14 +351,13 @@ const SubscriptionManagement = () => {
   // Reset form
   const resetForm = () => {
     setFormData({
-      userEmail: "",
-      subscriptionPlanId: "",
-      subscriptionPlanName: "",
+      email: "",
+      subscriptionPlanId: 0,
       startDate: "",
       endDate: "",
       status: "",
-      autoRenew: false,
       paymentFrequency: "",
+      autoRenew: false,
       sub: null
     });
   };
@@ -152,15 +399,14 @@ const SubscriptionManagement = () => {
   const handleUpdateClick = (subscription) => {
     setCurrentSubscription(subscription);
     setFormData({
-      userEmail: subscription.userEmail || "",
-      subscriptionPlanId: subscription.subscriptionPlanId || "",
-      subscriptionPlanName: subscription.subscriptionPlanName || "",
+      email: subscription.userEmail || "",
+      subscriptionPlanId: subscription.subscriptionPlanId || 0,
       startDate: subscription.startDate ? subscription.startDate.split('T')[0] : "",
       endDate: subscription.endDate ? subscription.endDate.split('T')[0] : "",
       status: subscription.status || "",
       autoRenew: subscription.autoRenew || false,
       paymentFrequency: subscription.paymentFrequency || "",
-      sub: subscription.sub
+      sub: subscription.sub || null
     });
     setIsUpdateModalOpen(true);
   };
@@ -172,21 +418,108 @@ const SubscriptionManagement = () => {
     
     try {
       setLoading(true);
-      await updateSubscriptionAPI(currentSubscription.subscriptionId, formData);
       
-      // Update local state and cache
-      const updatedSubscriptions = subscriptions.map(sub => 
-        sub.subscriptionId === currentSubscription.subscriptionId ? { ...sub, ...formData } : sub
-      );
+      // Create JSON Patch operations array
+      const patchOperations = [];
       
-      setSubscriptions(updatedSubscriptions);
-      localStorage.setItem('subscriptions', JSON.stringify(updatedSubscriptions));
+      // Check which fields have changed and create patch operations
+      if (formData.email !== currentSubscription.userEmail) {
+        patchOperations.push({
+          op: "replace",
+          path: "/email",
+          value: formData.email
+        });
+      }
+      
+      if (formData.subscriptionPlanId !== currentSubscription.subscriptionPlanId) {
+        patchOperations.push({
+          op: "replace",
+          path: "/subscriptionPlanId",
+          value: parseInt(formData.subscriptionPlanId)
+        });
+      }
+      
+      if (formData.startDate !== (currentSubscription.startDate ? currentSubscription.startDate.split('T')[0] : "")) {
+        patchOperations.push({
+          op: "replace",
+          path: "/startDate",
+          value: formData.startDate
+        });
+      }
+      
+      if (formData.endDate !== (currentSubscription.endDate ? currentSubscription.endDate.split('T')[0] : "")) {
+        patchOperations.push({
+          op: "replace",
+          path: "/endDate",
+          value: formData.endDate
+        });
+      }
+      
+      if (formData.status !== currentSubscription.status) {
+        patchOperations.push({
+          op: "replace",
+          path: "/status",
+          value: formData.status
+        });
+      }
+      
+      if (formData.paymentFrequency !== currentSubscription.paymentFrequency) {
+        patchOperations.push({
+          op: "replace",
+          path: "/paymentFrequency",
+          value: formData.paymentFrequency
+        });
+      }
+      
+      if (formData.autoRenew !== currentSubscription.autoRenew) {
+        patchOperations.push({
+          op: "replace",
+          path: "/autoRenew",
+          value: formData.autoRenew
+        });
+      }
+      
+      // Check if sub field has changed and is not null or empty
+      if (formData.sub !== currentSubscription.sub && formData.sub !== null && formData.sub !== "") {
+        patchOperations.push({
+          op: "replace",
+          path: "/sub",
+          value: formData.sub
+        });
+      }
+      
+      // Only proceed if there are changes
+      if (patchOperations.length === 0) {
+        setSuccessMessage("No changes detected.");
+        setIsUpdateModalOpen(false);
+        return;
+      }
+      
+      console.log("🔄 Sending PATCH request with data:", JSON.stringify(patchOperations, null, 2));
+      
+      // Call the update API with patch operations
+      await updateSubscriptionAPI(currentSubscription.subscriptionId, patchOperations);
+      
+      // Refresh the data
+      const response = await getAllSubscriptionsAPI({
+        pageNumber: currentPage,
+        pageSize: pageSize
+      });
+      
+      if (response) {
+        setSubscriptions(response);
+        // Only update cache if not searching
+        if (!searchQuery) {
+          localStorage.setItem('subscriptions', JSON.stringify(response));
+          localStorage.setItem('subscriptions_timestamp', Date.now().toString());
+        }
+      }
       
       setSuccessMessage("Subscription updated successfully!");
       setIsUpdateModalOpen(false);
       resetForm();
     } catch (err) {
-      setError("Failed to update subscription.");
+      setError("Failed to update subscription: " + (err.message || "Unknown error"));
       console.error('Error updating subscription:', err);
     } finally {
       setLoading(false);
@@ -225,11 +558,28 @@ const SubscriptionManagement = () => {
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
+    
+    // Special handling for sub field - empty string becomes null
+    if (name === 'sub' && value === '') {
+      setFormData({
+        ...formData,
+        [name]: null
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value
+      });
+    }
   };
+
+  // Clear success message after 3 seconds
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -239,20 +589,8 @@ const SubscriptionManagement = () => {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
         <main className="grow px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-          <div className="sm:flex sm:justify-between sm:items-center mb-8">
+          <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Subscription Management</h1>
-            
-            <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mt-4 sm:mt-0">
-              <Button 
-                variant="primary"
-                onClick={() => {
-                  resetForm();
-                  setIsCreateModalOpen(true);
-                }}
-              >
-                Add Subscription
-              </Button>
-            </div>
           </div>
           
           {/* Status Messages */}
@@ -269,21 +607,23 @@ const SubscriptionManagement = () => {
           )}
           
           {/* Search Bar */}
-          <div className="mb-6">
-            <div className="relative">
-              <input
-                type="text"
-                className="w-full md:w-80 pl-10 pr-4 py-2 border rounded-lg"
-                placeholder="Search by email..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
+          <div className="flex gap-4 mb-4 items-center">
+            <input
+              type="text"
+              placeholder="Searching..."
+              className="border border-gray-300 rounded w-2/5 p-2"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button
+              className="ml-auto p-2 rounded text-white font-semibold bg-[#8470FF] hover:bg-[#6b5acd] transition"
+              onClick={() => {
+                resetForm();
+                setIsCreateModalOpen(true);
+              }}
+            >
+              Create Subscription
+            </button>
           </div>
           
           {/* Subscriptions Table */}
@@ -295,14 +635,14 @@ const SubscriptionManagement = () => {
           ) : (
             <>
               {subscriptions.length === 0 ? (
-                <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow text-center">
-                  <p className="text-gray-600 dark:text-gray-300">No subscriptions found.</p>
+                <div className="bg-white p-8 rounded-lg shadow text-center">
+                  <p className="text-gray-600">No subscriptions found.</p>
                 </div>
               ) : (
-                <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full table-auto">
-                      <thead className="bg-gray-50 dark:bg-gray-700 text-xs font-semibold uppercase text-gray-500 dark:text-gray-300">
+                      <thead className="bg-gray-50 text-xs font-semibold uppercase text-gray-500">
                         <tr>
                           <th className="px-4 py-3 whitespace-nowrap">ID</th>
                           <th className="px-4 py-3 whitespace-nowrap">Email</th>
@@ -318,7 +658,7 @@ const SubscriptionManagement = () => {
                       </thead>
                       <tbody className="text-sm">
                         {subscriptions.map((subscription) => (
-                          <tr key={subscription.subscriptionId} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/25">
+                          <tr key={subscription.subscriptionId} className="border-b border-gray-200 hover:bg-gray-50">
                             <td className="px-4 py-3 whitespace-nowrap">{subscription.subscriptionId}</td>
                             <td className="px-4 py-3 whitespace-nowrap">{subscription.userEmail}</td>
                             <td className="px-4 py-3 whitespace-nowrap">{subscription.subscriptionPlanName}</td>
@@ -329,12 +669,17 @@ const SubscriptionManagement = () => {
                               {subscription.endDate ? new Date(subscription.endDate).toLocaleDateString() : 'N/A'}
                             </td>
                             <td className="px-4 py-3 whitespace-nowrap">
-                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${subscription.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                subscription.status === 'Active' ? 'bg-green-100 text-green-800' : 
+                                'bg-gray-100 text-gray-800'
+                              }`}>
                                 {subscription.status}
                               </span>
                             </td>
                             <td className="px-4 py-3 whitespace-nowrap">
-                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${subscription.autoRenew ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                subscription.autoRenew ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
+                              }`}>
                                 {subscription.autoRenew ? 'Yes' : 'No'}
                               </span>
                             </td>
@@ -398,211 +743,27 @@ const SubscriptionManagement = () => {
         </main>
       </div>
       
-      {/* Create Subscription Modal */}
-      <FormModal
+      {/* Modals */}
+      <CompactSubscriptionForm
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSubmit={handleCreateSubmit}
+        formData={formData}
+        handleInputChange={handleInputChange}
         title="Add New Subscription"
         submitText="Create Subscription"
-      >
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">User Email</label>
-            <input
-              type="email"
-              name="userEmail"
-              value={formData.userEmail}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Plan ID</label>
-            <input
-              type="text"
-              name="subscriptionPlanId"
-              value={formData.subscriptionPlanId}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Plan Name</label>
-            <input
-              type="text"
-              name="subscriptionPlanName"
-              value={formData.subscriptionPlanName}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date</label>
-            <input
-              type="date"
-              name="endDate"
-              value={formData.endDate}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
-            <input
-              type="text"
-              name="status"
-              value={formData.status}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Payment Frequency</label>
-            <input
-              type="text"
-              name="paymentFrequency"
-              value={formData.paymentFrequency}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="autoRenew"
-              name="autoRenew"
-              checked={formData.autoRenew}
-              onChange={handleInputChange}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <label htmlFor="autoRenew" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              Auto Renew
-            </label>
-          </div>
-        </div>
-      </FormModal>
+      />
       
-      {/* Update Subscription Modal */}
-      <FormModal
+      <CompactSubscriptionForm
         isOpen={isUpdateModalOpen}
         onClose={() => setIsUpdateModalOpen(false)}
         onSubmit={handleUpdateSubmit}
+        formData={formData}
+        handleInputChange={handleInputChange}
         title="Update Subscription"
         submitText="Save Changes"
-      >
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">User Email</label>
-            <input
-              type="email"
-              name="userEmail"
-              value={formData.userEmail}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Plan ID</label>
-            <input
-              type="text"
-              name="subscriptionPlanId"
-              value={formData.subscriptionPlanId}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Plan Name</label>
-            <input
-              type="text"
-              name="subscriptionPlanName"
-              value={formData.subscriptionPlanName}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date</label>
-            <input
-              type="date"
-              name="endDate"
-              value={formData.endDate}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
-            <input
-              type="text"
-              name="status"
-              value={formData.status}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Payment Frequency</label>
-            <input
-              type="text"
-              name="paymentFrequency"
-              value={formData.paymentFrequency}
-              onChange={handleInputChange}
-              className="w-full border rounded-md p-2"
-              required
-            />
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="autoRenew"
-              name="autoRenew"
-              checked={formData.autoRenew}
-              onChange={handleInputChange}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded"
-            />
-            <label htmlFor="autoRenew" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              Auto Renew
-            </label>
-          </div>
-        </div>
-      </FormModal>
+      />
       
-      {/* Delete Confirmation Modal */}
       <ConfirmModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
@@ -613,53 +774,12 @@ const SubscriptionManagement = () => {
         cancelText="Cancel"
         danger={true}
       />
-
-      {/* Invoice View Modal */}
-      <FormModal
+      
+      <InvoiceModal
         isOpen={isInvoiceModalOpen}
         onClose={() => setIsInvoiceModalOpen(false)}
-        onSubmit={(e) => {
-          e.preventDefault();
-          setIsInvoiceModalOpen(false);
-        }}
-        title="Subscription Invoices"
-        submitText="Close"
-      >
-        {selectedInvoices.length === 0 ? (
-          <p className="text-center text-gray-500">No invoices found for this subscription.</p>
-        ) : (
-          <div className="space-y-4 max-h-96 overflow-auto">
-            {selectedInvoices.map(invoice => (
-              <div key={invoice.invoiceId} className="border p-4 rounded-lg">
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-semibold">Invoice #{invoice.invoiceId}</p>
-                    <p className="text-sm text-gray-600">Amount: ${invoice.amount}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm">Due: {new Date(invoice.dueDate).toLocaleDateString()}</p>
-                    {invoice.paidDate && (
-                      <p className="text-sm text-green-600">Paid: {new Date(invoice.paidDate).toLocaleDateString()}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="mt-2 flex justify-between items-center">
-                  <p className="text-xs text-gray-500">
-                    Method: {invoice.paymentMethod || 'N/A'}
-                  </p>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    invoice.status === 'Paid' ? 'bg-green-100 text-green-800' : 
-                    invoice.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
-                    'bg-red-100 text-red-800'
-                  }`}>
-                    {invoice.status}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </FormModal>
+        invoices={selectedInvoices}
+      />
     </div>
   );
 };

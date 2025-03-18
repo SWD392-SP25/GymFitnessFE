@@ -39,6 +39,7 @@ import AppointmentType from './pages/Admin/AppointmentType';
 import AppointmentTypeDetail from './pages/Admin/AppointmentTypeDetail';
 import CreateAppointmentType from './pages/Admin/CreateAppointmentType';
 import SubscriptionManagement from './pages/Admin/SubscriptionManagement';
+import SubscriptionPlan from './pages/Admin/SubscriptionPlan';
 
 function App() {
   const location = useLocation();
@@ -67,6 +68,7 @@ function App() {
         <Route path="/Appointment-Type-Detail/:id" element={<AppointmentTypeDetail />} />
         <Route path="/Create-Appointment-Type" element={<CreateAppointmentType/>} />
         <Route path="/subscriptions" element={<SubscriptionManagement />} />
+        <Route path="/subscription-plans" element={<SubscriptionPlan />} />
 
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
