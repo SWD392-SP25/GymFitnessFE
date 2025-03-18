@@ -40,6 +40,7 @@ import AppointmentTypeDetail from './pages/Admin/AppointmentTypeDetail';
 import CreateAppointmentType from './pages/Admin/CreateAppointmentType';
 import SubscriptionManagement from './pages/Admin/SubscriptionManagement';
 import SubscriptionPlan from './pages/Admin/SubscriptionPlan';
+import TestPayment from './pages/Admin/TestPayment';
 
 function App() {
   const location = useLocation();
@@ -69,6 +70,7 @@ function App() {
         <Route path="/Create-Appointment-Type" element={<CreateAppointmentType/>} />
         <Route path="/subscriptions" element={<SubscriptionManagement />} />
         <Route path="/subscription-plans" element={<SubscriptionPlan />} />
+        <Route path="/TestPayment" element={<TestPayment/>} />
 
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
