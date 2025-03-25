@@ -575,6 +575,62 @@ export const getAppointmentsAPI = async ({
   }
 };
 
+//---------------------------------------------------ChatEndpoints----------------------------------------------
+const ChatEndpoints = {
+  getChatHistory: "/Chat/history/{userId}/{staffId}",
+  sendMessage: "/Chat/send"
+};
+
+// Get chat history between user and staff
+export const getChatHistoryAPI = async (userId, staffId) => {
+  try {
+    const response = await instance.get(
+      ChatEndpoints.getChatHistory
+        .replace("{userId}", userId)
+        .replace("{staffId}", staffId)
+    );
+    return response;
+  } catch (error) {
+    console.error("Error fetching chat history:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// Send a message
+export const sendMessageAPI = async (messageData) => {
+  try {
+    console.log("Sending message:", messageData);
+    const response = await instance.post(ChatEndpoints.sendMessage, messageData);
+    return response;
+  } catch (error) {
+    console.error("Error sending message:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// Get staff conversations list
+export const getStaffConversationsAPI = async (staffId, {
+  pageNumber = 1,
+  pageSize = 20,
+  filterQuery = ""
+} = {}) => {
+  try {
+    // Note: Replace with your actual endpoint for staff conversations
+    const response = await instance.get("/Chat/conversations", {
+      params: {
+        staffId,
+        pageNumber,
+        pageSize,
+        filterQuery
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error("Error fetching staff conversations:", error.response?.data || error);
+    throw error;
+  }
+};
+
 
 
 
