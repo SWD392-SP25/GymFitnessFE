@@ -1,14 +1,12 @@
-// Update src/services/SubscriptionService.js
-
 import instance from "./customize-axios";
 
-// FIX: Remove "/api" prefix from all endpoint paths since it's already in baseURL
 const SubscriptionEndpoints = {
   getAll: "/UserSubscription",
   getById: "/UserSubscription/{subscriptionId}",
   create: "/UserSubscription",
   update: "/UserSubscription/{subscriptionId}",
-  delete: "/UserSubscription/{subscriptionId}"
+  delete: "/UserSubscription/{subscriptionId}",
+  getTrainerSubscribers: "/UserSubscription/trainer/{staffId}"
 };
 
 // Get all subscriptions
@@ -80,6 +78,17 @@ export const deleteSubscriptionAPI = async (subscriptionId) => {
     return response;
   } catch (error) {
     console.error(`Error deleting subscription ID ${subscriptionId}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// Get trainer's subscribers/users
+export const getTrainerSubscribersAPI = async (staffId) => {
+  try {
+    const response = await instance.get(SubscriptionEndpoints.getTrainerSubscribers.replace("{staffId}", staffId));
+    return response;
+  } catch (error) {
+    console.error(`Error fetching trainer's subscribers for staffId ${staffId}:`, error.response?.data || error);
     throw error;
   }
 };

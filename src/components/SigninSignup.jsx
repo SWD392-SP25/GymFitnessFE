@@ -33,19 +33,20 @@ const SigninSignup = () => {
         localStorage.setItem("token", response.token);
         localStorage.setItem("refreshToken", response.refreshToken);
         localStorage.setItem("role", response.role); // Lưu role để sử dụng sau
+        
+        // Also store the user's email for later use
+        localStorage.setItem("userEmail", user.email);
+        
         if ((response.role !== 'Admin' && response.role !== 'Staff')) {
           alert(`You do not have permission to access this feature!`);
-        } else alert(`Welcome, ${user.displayName}!`);
+        } else {
+          alert(`Welcome, ${user.displayName || user.email}!`);
+        }
         
-  
         // ✅ Điều hướng dựa trên role
-        if (response.role === "Staff") {
+        if (response.role === "Admin" || response.role === "Staff") {
           navigate("/dashboard");
-        // } else if (response.role === "pt") {
-        //   navigate("/pt/dashboard");
-        // } else {
-        //   navigate("/dashboard"); // Mặc định cho user thường
-         }
+        }
       }
     } catch (error) {
       console.error("Lỗi đăng nhập:", error.message);
@@ -53,7 +54,6 @@ const SigninSignup = () => {
     }
   };
   
-
   return (
     <div className={styles["auth-container"]} data-aos="zoom-out-down">
       <div className={styles["auth-box"]}>

@@ -1,4 +1,3 @@
-
 import instance from "./customize-axios";
 
 //---------------------------------------------------Endpoints đã làm-------------------------------------------
@@ -32,6 +31,7 @@ import instance from "./customize-axios";
 // 28 update subscription by id
 // 29 delete subscription by id
 // 30 get all subscription plans
+// 31 get staff by id
 
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------
@@ -397,6 +397,7 @@ export const getUserByEmailAPI = async (email) => {
 
 const StaffsEndpoints = {
   getStaffs: "/Staff",
+  getStaffById: "/Staff/{id}",
 };
 
 // get all staffs
@@ -423,6 +424,17 @@ export const getStaffsAPI = async ({
     return response;
   } catch (error) {
     console.error("Lỗi lấy danh sách nhân viên:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// Get staff by ID
+export const getStaffByIdAPI = async (id) => {
+  try {
+    const response = await instance.get(StaffsEndpoints.getStaffById.replace("{id}", id));
+    return response;
+  } catch (error) {
+    console.error(`Error fetching staff with ID ${id}:`, error.response?.data || error);
     throw error;
   }
 };
@@ -467,7 +479,7 @@ export const getAppointmentTypeByIdAPI = async (id) => {
     const response = await instance.get(AppointmentTypeEndpoints.getAppointmentTypeById.replace("{id}", id));
     return response;
   } catch (error) {
-    console.error(`Lỗi get type ${typeId}:`, error.response?.data || error);
+    console.error(`Lỗi get type ${id}:`, error.response?.data || error);
     throw error;
   }
 };
@@ -630,43 +642,3 @@ export const getStaffConversationsAPI = async (staffId, {
     throw error;
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-//  Đăng xuất
-// export const logoutAPI = async () => {
-//   try {
-//     const token = localStorage.getItem("token"); // Lấy access token từ localStorage
-
-//     if (!token) throw new Error("Không tìm thấy access token!");
-
-//     // Gửi request logout lên backend kèm token
-//     await instance.post(AuthEndpoints.logout, {body: `${token}`}, {
-//       // headers: {
-//       //   Authorization: `Bearer ${token}`, // Truyền token vào header
-//       // },
-//     });
-
-//     // Đăng xuất Firebase
-//     await auth.signOut();
-
-//     // Xóa dữ liệu đăng nhập khỏi localStorage
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("refreshToken");
-//     localStorage.removeItem("role");
-
-//     return true;
-//   } catch (error) {
-//     console.error("Lỗi đăng xuất:", error);
-//     return false;
-//   }
-// };
