@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-    getAppointmentByIdAPI
+    getAppointmentByIdAPI,
+    getAppointmentTypeByIdAPI,
+    getStaffByIdAPI
 } from "../../services/UsersService";
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
@@ -11,12 +13,8 @@ const AppointmentDetail = () => {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [updateStatus, setUpdateStatus] = useState(null);
-    const [appointment, setAppointment] = useState({
-        name: "",
-        description: "",
-        durationMinutes: 0,
-        price: 0.0,
-    });
+    const [appointment, setAppointment] = useState({});
+    const [staff, setStaff] = useState(null);
 
     useEffect(() => {
         const userRole = localStorage.getItem("role");
@@ -52,9 +50,6 @@ const AppointmentDetail = () => {
                 <main className="grow px-4 sm:px-6 lg:px-8 py-8 w-full max-w-4xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 space-y-6">
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
-                                {appointment.appointmentId || "N/A"}
-                            </h1>
 
                             <div className="space-y-4">
                                 {/* Name */}
@@ -88,15 +83,7 @@ const AppointmentDetail = () => {
                                     value={appointment.endTime}
                                     onChange={(e) => setType({ ...appointment, endTime: e.target.value })}
                                 />
-                                {/* Price */}
-                                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    Status:
-                                </label>
-                                <input
-                                    className="mt-1 p-2 block w-full border rounded-md bg-gray-50 dark:bg-gray-700 dark:text-gray-200"
-                                    value={appointment.Status}
-                                    onChange={(e) => setType({ ...appointment, Status: parseFloat(e.target.value) || 0.0 })}
-                                />
+
                                 <button
                                     className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-gray-300 transition"
                                 // onClick={handleUpdate}

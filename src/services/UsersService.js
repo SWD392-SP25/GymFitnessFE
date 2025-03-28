@@ -18,7 +18,7 @@ import instance from "./customize-axios";
 // 15 ban user
 // 16 get user by email
 // 17 get all staffs 
-// 18 get staff by email // be đang sửa
+// 18 get staff by email 
 // 19 get all appointment types 
 // 20 get all appointments 
 // 21 get appointment types by id
@@ -432,12 +432,12 @@ export const getStaffsAPI = async ({
 export const getStaffByIdAPI = async (id) => {
   try {
     const response = await instance.get(StaffsEndpoints.getStaffById.replace("{id}", id));
-    return response;
+    return response.data; // Ensure you are using the actual response data
   } catch (error) {
     console.error(`Error fetching staff with ID ${id}:`, error.response?.data || error);
     throw error;
   }
-};
+}
 
 //---------------------------------------------------AppointmentTypeEndpoints----------------------------------------------
 
