@@ -55,7 +55,7 @@ const Appointment = () => {
         const fetcTypes = async () => {
             try {
                 const response = await getAppointmentTypesAPI();
-                setAppointmentTypes(response); 
+                setAppointmentTypes(response);
                 console.log("Types fetched:", response);
             } catch (error) {
                 console.error("Lỗi tải danh sách loại lịch hẹn:", error);
@@ -105,9 +105,10 @@ const Appointment = () => {
                             <table className="min-w-full border border-gray-300">
                                 <thead>
                                     <tr className="bg-gray-200 text-left">
-                                        <th className="border p-3">userId</th>
-                                        <th className="border p-3">staffId</th>
-                                        <th className="border p-3">typeId</th>
+                                        <th className="border p-3">ID</th>
+                                        <th className="border p-3">User Email</th>
+                                        <th className="border p-3">Staff Email</th>
+                                        <th className="border p-3">Type</th>
                                         <th className="border p-3">startTime</th>
                                         <th className="border p-3  text-center">Details</th>
                                     </tr>
@@ -117,13 +118,13 @@ const Appointment = () => {
                                         appointments.map((appointment) => (
                                             <tr key={appointment.appointmentId} className="border">
                                                 <td className="border p-3">{appointment.appointmentId}</td>
-                                                <td className="border p-3">{appointment.userId}</td>
-                                                <td className="border p-3">{appointment.staffId}</td>
-                                                <td className="border p-3">{appointment.typeId}</td>
+                                                <td className="border p-3">{appointment.userName}</td>
+                                                <td className="border p-3">{appointment.staffName}</td>
+                                                <td className="border p-3">{appointment.description}</td>
                                                 <td className="border p-3">{appointment.startTime}</td>
                                                 <td className="p-3 text-center">
                                                     <Link
-                                                        // to={`/Appointment-Detail/${appointment.appointmentId}`}
+                                                        to={`/Appointment-Detail/${appointment.appointmentId}`}
                                                         className="bg-[#8470FF] text-white px-3 py-1 rounded hover:bg-[#6b5acd] transition inline-block text-center"
                                                     >
                                                         View

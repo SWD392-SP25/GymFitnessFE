@@ -32,7 +32,7 @@ import instance from "./customize-axios";
 // 29 delete subscription by id
 // 30 get all subscription plans
 // 31 get staff by id
-
+// 32 get appointment detail
 
 //---------------------------------------------------AuthEndpoints----------------------------------------------
 const AuthEndpoints = {
@@ -557,6 +557,7 @@ export const deleteAppointmentTypeAPI = async (id) => {
 
 const AppointmentEndpoints = {
   getAppointments: "/Appointment",
+  getAppointmentById: "/Appointment/{id}"
 };
 
 // get all appointments
@@ -583,6 +584,17 @@ export const getAppointmentsAPI = async ({
     return response;
   } catch (error) {
     console.error("Lỗi lấy danh sách lịch hẹn:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// get appointment by id 
+export const getAppointmentByIdAPI = async (id) => {
+  try {
+    const response = await instance.get(AppointmentEndpoints.getAppointmentById.replace("{id}", id));
+    return response;
+  } catch (error) {
+    console.error(`Lỗi get appointment ${id}:`, error.response?.data || error);
     throw error;
   }
 };

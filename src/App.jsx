@@ -42,6 +42,7 @@ import SubscriptionManagement from './pages/Admin/SubscriptionManagement';
 import SubscriptionPlan from './pages/Admin/SubscriptionPlan';
 import TestPayment from './pages/Admin/TestPayment';
 import StaffChat from './pages/Admin/StaffChat';
+import AppointmentDetail from './pages/Admin/AppointmentDetail';
 
 function App() {
   const location = useLocation();
@@ -73,6 +74,7 @@ function App() {
         <Route path="/subscription-plans" element={<SubscriptionPlan />} />
         <Route path="/TestPayment" element={<TestPayment/>} />
         <Route path="/Staff-Chat" element={<StaffChat/>} />
+        <Route path="/Appointment-Detail/:id" element={<AppointmentDetail />} />
 
         {/* PT Dashboard and nested routes */}
         <Route path="/pt/*" element={<PTDashboard />} />
