@@ -12,9 +12,9 @@ import FinancialReports from './components/FinancialReports/FinancialReports';
 import ProfileSettings from './components/ProfileSettings/ProfileSettings';
 
 // Import icons (assuming you're using some icon library like react-icons)
-import { 
-  FiVideo, FiPlayCircle, FiMessageSquare, 
-  FiBarChart2, FiUser, FiMenu, FiX 
+import {
+  FiVideo, FiPlayCircle, FiMessageSquare,
+  FiBarChart2, FiUser, FiMenu, FiX
 } from 'react-icons/fi';
 
 const PTDashboard = () => {
@@ -35,19 +35,27 @@ const PTDashboard = () => {
   return (
     <div className={styles.ptDashboard}>
       {/* Mobile menu toggle button */}
-      
+
 
       {/* Sidebar */}
       <aside className={clsx(styles.sidebar, { [styles.mobileOpen]: isMobileMenuOpen })}>
         <div className={styles.sidebarHeader}>
+          <button
+            onClick={() => navigate('/dashboard')}
+            className={styles.backButton}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+              <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+            </svg>
+          </button>
           <h2>PT Dashboard</h2>
         </div>
         <nav className={styles.sidebarNav}>
           <ul>
             <li>
-              <NavLink 
-                to="/pt/courses" 
-                className={({isActive}) => clsx(styles.navLink, { [styles.active]: isActive })}
+              <NavLink
+                to="/pt/courses"
+                className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
                 onClick={() => handleNavClick('/pt/courses')}
               >
                 <FiVideo className={styles.navIcon} />
@@ -55,9 +63,9 @@ const PTDashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink 
-                to="/pt/free-samples" 
-                className={({isActive}) => clsx(styles.navLink, { [styles.active]: isActive })}
+              <NavLink
+                to="/pt/free-samples"
+                className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
                 onClick={() => handleNavClick('/pt/free-samples')}
               >
                 <FiPlayCircle className={styles.navIcon} />
@@ -65,9 +73,9 @@ const PTDashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink 
-                to="/pt/chats" 
-                className={({isActive}) => clsx(styles.navLink, { [styles.active]: isActive })}
+              <NavLink
+                to="/pt/chats"
+                className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
                 onClick={() => handleNavClick('/pt/chats')}
               >
                 <FiMessageSquare className={styles.navIcon} />
@@ -75,9 +83,9 @@ const PTDashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink 
-                to="/pt/financial" 
-                className={({isActive}) => clsx(styles.navLink, { [styles.active]: isActive })}
+              <NavLink
+                to="/pt/financial"
+                className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
                 onClick={() => handleNavClick('/pt/financial')}
               >
                 <FiBarChart2 className={styles.navIcon} />
@@ -85,9 +93,9 @@ const PTDashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink 
-                to="/pt/profile" 
-                className={({isActive}) => clsx(styles.navLink, { [styles.active]: isActive })}
+              <NavLink
+                to="/pt/profile"
+                className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
                 onClick={() => handleNavClick('/pt/profile')}
               >
                 <FiUser className={styles.navIcon} />

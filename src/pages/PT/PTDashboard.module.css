@@ -21,10 +21,33 @@
 .sidebarHeader {
   padding: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  left: 0.5rem;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebarHeader h2 {
-  margin: 0;
+  margin: 0 auto; /* Center the header text */
   font-size: 1.5rem;
   font-weight: 600;
 }

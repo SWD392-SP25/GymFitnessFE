@@ -4,7 +4,6 @@ import { getUserByEmailAPI } from '../../services/UsersService';
 import { getTrainerSubscribersAPI } from '../../services/SubscriptionService';
 import instance from '../../services/customize-axios';
 import { useNavigate } from 'react-router-dom';
-import ThemeToggle from '../../components/ThemeToggle';
 
 const StaffChat = () => {
   const navigate = useNavigate();
